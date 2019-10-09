@@ -15,6 +15,9 @@ require("../node_modules/bootstrap/dist/css/bootstrap.min.css");
 import VueLocalStorage from "vue-localstorage";
 Vue.use(VueLocalStorage);
 
+// Custom styles.
+require("./styles.css");
+
 // Define application.
 new Vue({
   render: h => h(App)
