@@ -1,8 +1,16 @@
 <template>
   <div id="app" class="container">
     <h1 class="text-center">Body Fat Calculator</h1>
-    <Calculator />
-    <Stats />
+
+    <div class="row">
+      <div class="col-md-4">
+        <Calculator />
+      </div>
+      <div class="col-md-8">
+        <Stats />
+      </div>
+    </div>
+
     <History />
   </div>
 </template>

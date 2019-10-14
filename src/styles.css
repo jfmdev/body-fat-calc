@@ -2,3 +2,11 @@
 .clickable {
   cursor: pointer;
 }
+
+.text-medium {
+  font-size: 14px;
+}
+
+.text-small {
+  font-size: 12px;
+}
