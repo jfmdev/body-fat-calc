@@ -4,7 +4,7 @@
 
     <div class="row">
       <div class="col-md-4">
-        <Calculator />
+        <Calculator v-model="details" />
       </div>
       <div class="col-md-8">
         <Stats />
@@ -16,9 +16,22 @@
 </template>
 
 <script>
+import _ from "lodash";
+
 import Calculator from "./components/Calculator.vue";
 import History from "./components/History.vue";
 import Stats from "./components/Stats.vue";
+
+const DEFAULT_DETAILS = {
+  system: "M",
+  gender: "M",
+  age: 33,
+  height: 180,
+  weight: 67,
+  waist: 68,
+  hip: 90,
+  neck: 35
+};
 
 export default {
   name: "app",
@@ -27,6 +40,12 @@ export default {
     Calculator,
     History,
     Stats
+  },
+
+  data: function() {
+    return {
+      details: _.clone(DEFAULT_DETAILS)
+    };
   }
 };
 </script>

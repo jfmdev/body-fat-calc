@@ -12,6 +12,7 @@
           <div class="col-sm-5">
             <div class="form-check">
               <input
+                v-model="value.system"
                 class="form-check-input"
                 type="radio"
                 name="system"
@@ -27,12 +28,12 @@
           <div class="col-sm-5">
             <div class="form-check">
               <input
+                v-model="value.system"
                 class="form-check-input"
                 type="radio"
                 name="system"
                 id="calc_system_e"
                 value="E"
-                checked
               />
               <label class="form-check-label clickable" for="calc_system_e">
                 English
@@ -49,6 +50,7 @@
           <div class="col-sm-5">
             <div class="form-check">
               <input
+                v-model="value.gender"
                 class="form-check-input"
                 type="radio"
                 name="gender"
@@ -63,12 +65,12 @@
           <div class="col-sm-5">
             <div class="form-check">
               <input
+                v-model="value.gender"
                 class="form-check-input"
                 type="radio"
                 name="gender"
                 id="calc_gender_m"
                 value="M"
-                checked
               />
               <label class="form-check-label clickable" for="calc_gender_m">
                 Male
@@ -78,86 +80,118 @@
         </div>
 
         <div class="row mt-2">
-          <div class="col-sm-2 my-auto">
-            <label for="calc_weight" class="font-weight-bold mb-0"
-              >Weight</label
-            >
+          <div class="col-sm-4 my-auto">
+            <label for="calc_age" class="font-weight-bold mb-0">
+              Age
+            </label>
           </div>
-          <div class="col-sm-10">
+          <div class="col-sm-8">
             <input
-              type="number"
+              v-model="value.age"
               class="form-control text-medium px-2 py-1"
-              id="calc_weight"
-              placeholder="e.g. 75 (kg)"
+              type="number"
+              name="age"
+              id="calc_age"
+              placeholder="e.g. 35 (years)"
             />
           </div>
         </div>
 
         <div class="row mt-2">
-          <div class="col-sm-2 my-auto">
-            <label for="calc_height" class="font-weight-bold mb-0"
-              >Height</label
-            >
+          <div class="col-sm-4 my-auto">
+            <label for="calc_height" class="font-weight-bold mb-0">
+              Height </label
+            ><span class="text-muted"> ({{ lengthUnit }})</span>
           </div>
-          <div class="col-sm-10">
+          <div class="col-sm-8">
             <input
-              type="number"
+              v-model="value.height"
               class="form-control text-medium px-2 py-1"
+              type="number"
+              name="height"
               id="calc_height"
-              placeholder="e.g. 175 (cm)"
+              :placeholder="lengthExample(175)"
             />
           </div>
         </div>
 
         <div class="row mt-2">
-          <div class="col-sm-2 my-auto">
-            <label for="calc_waist" class="font-weight-bold mb-0">Waist</label>
+          <div class="col-sm-4 my-auto">
+            <label for="calc_weight" class="font-weight-bold mb-0">Weight</label
+            ><span class="text-muted"> ({{ weightUnit }})</span>
           </div>
-          <div class="col-sm-10">
+          <div class="col-sm-8">
             <input
-              type="number"
+              v-model="value.weight"
               class="form-control text-medium px-2 py-1"
-              id="calc_waist"
-              placeholder="e.g. 85 (cm)"
+              type="number"
+              name="weight"
+              id="calc_weight"
+              :placeholder="weightExample(75)"
             />
           </div>
         </div>
-        <div class="text-right text-small text-muted">
-          (waist circumference at narrowest/navel [female/male] point)
-        </div>
 
         <div class="row mt-2">
-          <div class="col-sm-2 my-auto">
-            <label for="calc_fip" class="font-weight-bold mb-0">Hip</label>
+          <div class="col-sm-4 my-auto">
+            <label for="calc_neck" class="font-weight-bold mb-0">Neck</label
+            ><span class="text-muted"> ({{ lengthUnit }})</span>
           </div>
-          <div class="col-sm-10">
+          <div class="col-sm-8">
             <input
-              type="number"
+              v-model="value.neck"
               class="form-control text-medium px-2 py-1"
-              id="calc_fip"
-              placeholder="e.g. 95 (cm)"
-            />
-          </div>
-        </div>
-        <div class="text-right text-small text-muted">
-          (hip circumference at widest point) - only female
-        </div>
-
-        <div class="row mt-2">
-          <div class="col-sm-2 my-auto">
-            <label for="calc_neck" class="font-weight-bold mb-0">Neck</label>
-          </div>
-          <div class="col-sm-10">
-            <input
               type="number"
-              class="form-control text-medium px-2 py-1"
+              name="neck"
               id="calc_neck"
-              placeholder="e.g. 35 (cm)"
+              :placeholder="lengthExample(35)"
             />
           </div>
         </div>
         <div class="text-right text-small text-muted">
           (neck circumference at narrowest point)
+        </div>
+
+        <div class="row mt-2">
+          <div class="col-sm-4 my-auto">
+            <label for="calc_waist" class="font-weight-bold mb-0">Waist</label
+            ><span class="text-muted"> ({{ lengthUnit }})</span>
+          </div>
+          <div class="col-sm-8">
+            <input
+              v-model="value.waist"
+              class="form-control text-medium px-2 py-1"
+              type="number"
+              name="waist"
+              id="calc_waist"
+              :placeholder="lengthExample(85)"
+            />
+          </div>
+        </div>
+        <div class="text-right text-small text-muted">
+          (waist circumference at {{ isFemale ? "narrowest" : "navel" }} point)
+        </div>
+
+        <div v-if="isFemale">
+          <div class="row mt-2">
+            <div class="col-sm-4 my-auto">
+              <label for="calc_hip" class="font-weight-bold mb-0">Hip</label
+              ><span class="text-muted"> ({{ lengthUnit }})</span>
+            </div>
+            <div class="col-sm-8">
+              <input
+                v-model="value.hip"
+                class="form-control text-medium px-2 py-1"
+                type="number"
+                name="hip"
+                id="calc_hip"
+                :placeholder="lengthExample(95)"
+              />
+            </div>
+          </div>
+          <div class="text-right text-small text-muted">
+            (hip circumference at widest point)
+          </div>
         </div>
       </div>
     </div>
@@ -165,7 +199,55 @@
 </template>
 
 <script>
+// TODO: emit events ('input' perphaps) each time one of the input is updated.
+// TODO: calculate date each time an input is updated.
+const LBS_TO_KG = 0.45359237;
+const IN_TO_CM = 2.54;
+
 export default {
-  name: "Calculator"
+  name: "Calculator",
+
+  props: {
+    value: {
+      type: Object,
+      default: function() {
+        return {};
+      }
+    }
+  },
+
+  computed: {
+    isFemale() {
+      return this.value.gender === "F";
+    },
+
+    isMetric() {
+      return this.value.system === "M";
+    },
+
+    lengthUnit() {
+      return this.isMetric ? "cm" : "in";
+    },
+
+    weightUnit() {
+      return this.isMetric ? "kg" : "lbs";
+    }
+  },
+
+  methods: {
+    lengthExample(valueInCm) {
+      const value = this.isMetric
+        ? valueInCm
+        : Math.floor(valueInCm / IN_TO_CM);
+      return `e.g. ${value} (${this.lengthUnit})`;
+    },
+
+    weightExample(valueInKg) {
+      const value = this.isMetric
+        ? valueInKg
+        : Math.floor(valueInKg / LBS_TO_KG);
+      return `e.g. ${value} (${this.weightUnit})`;
+    }
+  }
 };
 </script>
