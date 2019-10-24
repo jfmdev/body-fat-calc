@@ -22,6 +22,7 @@ import Calculator from "./components/Calculator.vue";
 import History from "./components/History.vue";
 import Stats from "./components/Stats.vue";
 
+// TODO: Remove this, and instead load the last values entered.
 const DEFAULT_DETAILS = {
   system: "M",
   gender: "M",
@@ -33,6 +34,7 @@ const DEFAULT_DETAILS = {
   neck: 35
 };
 
+// TODO: listen for Calculator events, and pass them to History and Stats.
 export default {
   name: "app",
 
