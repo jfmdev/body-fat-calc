@@ -18,7 +18,7 @@
                 name="system"
                 id="calc_system_m"
                 value="M"
-                @change="calculateValues"
+                @change="detailsUpdated"
               />
               <label class="form-check-label clickable" for="calc_system_m">
                 Metric
@@ -35,7 +35,7 @@
                 name="system"
                 id="calc_system_e"
                 value="E"
-                @change="calculateValues"
+                @change="detailsUpdated"
               />
               <label class="form-check-label clickable" for="calc_system_e">
                 English
@@ -58,7 +58,7 @@
                 name="gender"
                 id="calc_gender_f"
                 value="F"
-                @change="calculateValues"
+                @change="detailsUpdated"
               />
               <label class="form-check-label clickable" for="calc_gender_f">
                 Female
@@ -74,7 +74,7 @@
                 name="gender"
                 id="calc_gender_m"
                 value="M"
-                @change="calculateValues"
+                @change="detailsUpdated"
               />
               <label class="form-check-label clickable" for="calc_gender_m">
                 Male
@@ -97,8 +97,8 @@
               name="age"
               id="calc_age"
               placeholder="e.g. 35 (years)"
-              @input="calculateValues"
-              @change="calculateValues"
+              @input="detailsUpdated"
+              @change="detailsUpdated"
             />
           </div>
         </div>
@@ -117,8 +117,8 @@
               name="height"
               id="calc_height"
               :placeholder="lengthExample(175)"
-              @input="calculateValues"
-              @change="calculateValues"
+              @input="detailsUpdated"
+              @change="detailsUpdated"
             />
           </div>
         </div>
@@ -136,8 +136,8 @@
               name="weight"
               id="calc_weight"
               :placeholder="weightExample(75)"
-              @input="calculateValues"
-              @change="calculateValues"
+              @input="detailsUpdated"
+              @change="detailsUpdated"
             />
           </div>
         </div>
@@ -155,8 +155,8 @@
               name="neck"
               id="calc_neck"
               :placeholder="lengthExample(35)"
-              @input="calculateValues"
-              @change="calculateValues"
+              @input="detailsUpdated"
+              @change="detailsUpdated"
             />
           </div>
         </div>
@@ -177,8 +177,8 @@
               name="waist"
               id="calc_waist"
               :placeholder="lengthExample(85)"
-              @input="calculateValues"
-              @change="calculateValues"
+              @input="detailsUpdated"
+              @change="detailsUpdated"
             />
           </div>
         </div>
@@ -200,8 +200,8 @@
                 name="hip"
                 id="calc_hip"
                 :placeholder="lengthExample(95)"
-                @input="calculateValues"
-                @change="calculateValues"
+                @input="detailsUpdated"
+                @change="detailsUpdated"
               />
             </div>
           </div>
@@ -219,7 +219,7 @@ const LBS_TO_KG = 0.45359237;
 const IN_TO_CM = 2.54;
 
 export default {
-  name: "Calculator",
+  name: "DetailsInputs",
 
   props: {
     value: {
@@ -249,12 +249,10 @@ export default {
   },
 
   methods: {
-    // TODO: Perhaps it would be better to just watch for changes on 'value'.
-    calculateValues() {
-      // TODO: Calulate values.
-      // TODO: Emit event with new values.
-      // TODO: (perphaps) Emit 'input' event, indicating that the modal has updated.
-      console.log("calculateValues");
+    detailsUpdated() {
+      // TODO: Change all the values to metric system.
+
+      this.$emit("input", this.value);
     },
 
     lengthExample(valueInCm) {

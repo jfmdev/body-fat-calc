@@ -4,10 +4,10 @@
 
     <div class="row">
       <div class="col-md-4">
-        <Calculator v-model="details" />
+        <DetailsInputs v-model="details" @input="calculateStats" />
       </div>
       <div class="col-md-8">
-        <Stats />
+        <Stats :values="results" />
       </div>
     </div>
 
@@ -18,11 +18,12 @@
 <script>
 import _ from "lodash";
 
-import Calculator from "./components/Calculator.vue";
-import History from "./components/History.vue";
-import Stats from "./components/Stats.vue";
+import DetailsInputs from "./components/DetailsInputs";
+import History from "./components/History";
+import Stats from "./components/Stats";
+import Formulas from "./utils/formulas";
 
-// TODO: Remove this, and instead load the last values entered.
+// TODO: remove this (initialize the inputs empties).
 const DEFAULT_DETAILS = {
   system: "M",
   gender: "M",
@@ -34,20 +35,42 @@ const DEFAULT_DETAILS = {
   neck: 35
 };
 
-// TODO: listen for Calculator events, and pass them to History and Stats.
+// TODO: Add button to allow users to save results into the history.
 export default {
   name: "app",
 
   components: {
-    Calculator,
+    DetailsInputs,
     History,
     Stats
   },
 
   data: function() {
+    // TODO: If available, load history and initialize details and result with the lastest values.
     return {
-      details: _.clone(DEFAULT_DETAILS)
+      details: _.clone(DEFAULT_DETAILS),
+      results: {},
+      history: []
     };
+  },
+
+  methods: {
+    calculateStats: function(details) {
+      // Calculate stats.
+      this.results = {
+        bmi: Formulas.bmi(details.weight, details.height),
+        deurenberg: Formulas.deurenberg(),
+        rfm: Formulas.rfm(
+          details.gender === "F",
+          details.height,
+          details.waist
+        ),
+        usNavy: Formulas.usNavy()
+      };
+
+      // TODO: Add values to local storage.
+      // localStorage.push({ details, result });
+    }
   }
 };
 </script>
