@@ -10,12 +10,15 @@
       <strong>RFM: </strong>
       {{ formatNumber(values.rfm, 2, "%") }}
       <div v-if="!values.rfm">
-        <small>Requires height and waist diameter</small>
+        <small>Requires gender, height and waist diameter</small>
       </div>
     </div>
     <div>
       <strong>Deurenberg: </strong>
       {{ formatNumber(values.deurenberg, 2, "%") }}
+      <div v-if="!values.deurenberg">
+        <small>Requires gender, age, weight and height.</small>
+      </div>
     </div>
     <div>
       <strong>US Navy: </strong>

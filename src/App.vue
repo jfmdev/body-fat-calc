@@ -58,9 +58,14 @@ export default {
     calculateStats: function(details) {
       // Calculate stats.
       this.results = {
-        bmi: Formulas.bmi(details.weight, details.height),
-        deurenberg: Formulas.deurenberg(),
-        rfm: Formulas.rfm(
+        bmi: Formulas.BMI(details.weight, details.height),
+        deurenberg: Formulas.deurenberg(
+          details.weight,
+          details.height,
+          details.gender === "F",
+          details.age
+        ),
+        rfm: Formulas.RFM(
           details.gender === "F",
           details.height,
           details.waist
