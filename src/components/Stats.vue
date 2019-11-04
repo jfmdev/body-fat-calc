@@ -4,25 +4,41 @@
     <div>
       <strong>BMI: </strong>
       {{ formatNumber(values.bmi, 1) }}
-      <div v-if="!values.bmi"><small>Requires weight and height</small></div>
+      <transition name="shrink-font">
+        <div v-if="!values.bmi" class="text-small">
+          Requires weight and height
+        </div>
+      </transition>
     </div>
+
     <div>
       <strong>RFM: </strong>
       {{ formatNumber(values.rfm, 2, "%") }}
-      <div v-if="!values.rfm">
-        <small>Requires gender, height and waist diameter</small>
-      </div>
+      <transition name="shrink-font">
+        <div v-if="!values.rfm" class="text-small">
+          Requires gender, height and waist diameter
+        </div>
+      </transition>
     </div>
+
     <div>
       <strong>Deurenberg: </strong>
       {{ formatNumber(values.deurenberg, 2, "%") }}
-      <div v-if="!values.deurenberg">
-        <small>Requires gender, age, weight and height.</small>
-      </div>
+      <transition name="shrink-font">
+        <div v-if="!values.deurenberg" class="text-small">
+          Requires gender, age, weight and height.
+        </div>
+      </transition>
     </div>
+
     <div>
       <strong>US Navy: </strong>
       {{ formatNumber(values.usNavy, 2, "%") }}
+      <transition name="shrink-font">
+        <div v-if="!values.usNavy" class="text-small">
+          Requires... (TODO)
+        </div>
+      </transition>
     </div>
   </div>
 </template>

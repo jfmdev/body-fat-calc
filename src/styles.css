@@ -1,4 +1,6 @@
 
+/* --- Miscelaneous --- */
+
 .clickable {
   cursor: pointer;
 }
@@ -9,4 +11,26 @@
 
 .text-small {
   font-size: 12px;
+}
+
+/* --- Animations --- */
+
+/* Shrink font */
+
+.shrink-font-enter,
+.shrink-font-leave,
+.shrink-font-enter-active,
+.shrink-font-leave-active {
+  -webkit-transition: font-size 0.7s;
+  -moz-transition: font-size 0.7s;
+  transition: font-size 0.7s;
+}
+
+.shrink-font-enter,
+.shrink-font-leave-to,
+div.shrink-font-enter,
+div.shrink-font-leave-to,
+span.shrink-font-enter,
+span.shrink-font-leave-to {
+  font-size: 0;
 }

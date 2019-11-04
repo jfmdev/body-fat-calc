@@ -11,7 +11,7 @@ export function BMI(weightInKg, heightInCm) {
 // Estimates the fat percentage using the Deurenberg method.
 export function deurenberg(weightInKg, heightInCm, isFemale, age) {
   const bmi = BMI(weightInKg, heightInCm);
-  if (!bmi || !age) {
+  if (!bmi || !age || age < 0) {
     return null;
   }
 
@@ -25,6 +25,10 @@ export function deurenberg(weightInKg, heightInCm, isFemale, age) {
 
 // Estimates the Relative Fat Mass index.
 export function RFM(isFemale, heightInCm, waistInCm) {
+  if (!heightInCm || heightInCm <= 0 || !waistInCm || waistInCm <= 0) {
+    return null;
+  }
+
   const constant = isFemale ? 76 : 64;
   return constant - 20 * (heightInCm / waistInCm);
 }
