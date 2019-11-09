@@ -1,5 +1,5 @@
 // Calculates the Body Mass Index.
-export function BMI(weightInKg, heightInCm) {
+export function BMI(heightInCm, weightInKg) {
   if (!weightInKg || weightInKg <= 0 || !heightInCm || heightInCm <= 0) {
     return null;
   }
@@ -9,8 +9,8 @@ export function BMI(weightInKg, heightInCm) {
 }
 
 // Estimates the fat percentage using the Deurenberg method.
-export function deurenberg(weightInKg, heightInCm, isFemale, age) {
-  const bmi = BMI(weightInKg, heightInCm);
+export function deurenberg(isFemale, heightInCm, weightInKg, age) {
+  const bmi = BMI(heightInCm, weightInKg);
   if (!bmi || !age || age < 0) {
     return null;
   }
@@ -33,9 +33,29 @@ export function RFM(isFemale, heightInCm, waistInCm) {
   return constant - 20 * (heightInCm / waistInCm);
 }
 
-// TODO: Estimates the fat percentage using the US Navy method.
-export function usNavy() {
-  return null;
+// Estimates the fat percentage using the US Navy method.
+export function usNavy(isFemale, heightInCm, waistInCm, neckInCm, hipInCm) {
+  if (
+    !heightInCm ||
+    heightInCm <= 0 ||
+    !waistInCm ||
+    waistInCm <= 0 ||
+    !neckInCm ||
+    neckInCm <= 0 ||
+    (isFemale && (!hipInCm || hipInCm <= 0))
+  ) {
+    return null;
+  }
+
+  const abc = isFemale
+    ? [1.29579, -0.35004, 0.221]
+    : [1.0324, -0.19077, 0.15456];
+  const x1 = isFemale ? waistInCm + hipInCm - neckInCm : waistInCm - neckInCm;
+  const x2 = heightInCm;
+
+  return (
+    495 / (abc[0] + abc[1] * Math.log10(x1) + abc[2] * Math.log10(x2)) - 450
+  );
 }
 
 export default {

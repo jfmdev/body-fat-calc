@@ -7,7 +7,7 @@
         <DetailsInputs v-model="details" @input="calculateStats" />
       </div>
       <div class="col-md-8">
-        <Stats :values="results" />
+        <Stats :values="results" :is-female="isFemale" />
       </div>
     </div>
 
@@ -54,15 +54,21 @@ export default {
     };
   },
 
+  computed: {
+    isFemale: function() {
+      return this.details.gender === "F";
+    }
+  },
+
   methods: {
     calculateStats: function(details) {
       // Calculate stats.
       this.results = {
-        bmi: Formulas.BMI(details.weight, details.height),
+        bmi: Formulas.BMI(details.height, details.weight),
         deurenberg: Formulas.deurenberg(
-          details.weight,
-          details.height,
           details.gender === "F",
+          details.height,
+          details.weight,
           details.age
         ),
         rfm: Formulas.RFM(
@@ -70,7 +76,13 @@ export default {
           details.height,
           details.waist
         ),
-        usNavy: Formulas.usNavy()
+        usNavy: Formulas.usNavy(
+          details.gender === "F",
+          details.height,
+          details.waist,
+          details.neck,
+          details.hip
+        )
       };
 
       // TODO: Add values to local storage.

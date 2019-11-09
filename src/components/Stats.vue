@@ -36,7 +36,10 @@
       {{ formatNumber(values.usNavy, 2, "%") }}
       <transition name="shrink-font">
         <div v-if="!values.usNavy" class="text-small">
-          Requires... (TODO)
+          Requires gender, height, waist diameter<span v-if="isFemale"
+            >, hip diameter</span
+          >
+          and neck diameter.
         </div>
       </transition>
     </div>
@@ -50,6 +53,10 @@ export default {
   name: "Stats",
 
   props: {
+    isFemale: {
+      type: Boolean,
+      default: false
+    },
     values: {
       type: Object,
       default: function() {
