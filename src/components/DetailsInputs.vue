@@ -249,8 +249,6 @@ export default {
 
   methods: {
     detailsUpdated() {
-      // TODO: Change all the values to metric system.
-
       this.$emit("input", this.value);
     },
 

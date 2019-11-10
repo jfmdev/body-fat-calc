@@ -31,7 +31,7 @@ const DEFAULT_DETAILS = {
   age: 33,
   height: 180,
   weight: 67,
-  waist: 68,
+  waist: 75,
   hip: 90,
   neck: 35
 };
@@ -64,7 +64,7 @@ export default {
   methods: {
     calculateStats: function(details) {
       // Convert values to metric system, if need.
-      if(details.system !== 'M') {
+      if (details.system !== "M") {
         details = _.clone(details);
         details.height *= IN_TO_CM;
         details.waist *= IN_TO_CM;

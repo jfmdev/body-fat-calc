@@ -4,4 +4,4 @@ export const LBS_TO_KG = 0.45359237;
 export default {
   IN_TO_CM,
   LBS_TO_KG
-}
+};
