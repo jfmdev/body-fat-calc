@@ -215,8 +215,7 @@
 </template>
 
 <script>
-const LBS_TO_KG = 0.45359237;
-const IN_TO_CM = 2.54;
+import { IN_TO_CM, LBS_TO_KG } from "@/utils/constants";
 
 export default {
   name: "DetailsInputs",

@@ -18,10 +18,11 @@
 <script>
 import _ from "lodash";
 
-import DetailsInputs from "./components/DetailsInputs";
-import History from "./components/History";
-import Stats from "./components/Stats";
-import Formulas from "./utils/formulas";
+import DetailsInputs from "@/components/DetailsInputs";
+import History from "@/components/History";
+import Stats from "@/components/Stats";
+import Formulas from "@/utils/formulas";
+import { IN_TO_CM, LBS_TO_KG } from "@/utils/constants";
 
 // TODO: remove this (initialize the inputs empties).
 const DEFAULT_DETAILS = {
@@ -62,6 +63,16 @@ export default {
 
   methods: {
     calculateStats: function(details) {
+      // Convert values to metric system, if need.
+      if(details.system !== 'M') {
+        details = _.clone(details);
+        details.height *= IN_TO_CM;
+        details.waist *= IN_TO_CM;
+        details.neck *= IN_TO_CM;
+        details.hip *= IN_TO_CM;
+        details.weight *= LBS_TO_KG;
+      }
+
       // Calculate stats.
       this.results = {
         bmi: Formulas.BMI(details.height, details.weight),
