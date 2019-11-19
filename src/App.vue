@@ -1,6 +1,6 @@
 <template>
   <div id="app" class="container">
-    <h1 class="text-center">Body Fat Calculator</h1>
+    <h1 class="text-center mb-2">Body Fat Calculator</h1>
 
     <div class="row">
       <div class="col-md-4">
