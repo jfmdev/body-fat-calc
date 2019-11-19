@@ -27,61 +27,30 @@
         </div>
       </transition>
 
-      TODO: Stats
-    </div>
+      <AmericanCouncil />
 
-    <!-- TODO: Remove (start) -->
-    <div>
-      <strong>BMI: </strong>
-      {{ formatNumber(values.bmi, 1) }}
-      <transition name="shrink-font">
-        <div v-if="!values.bmi" class="text-small">
-          Requires weight and height
-        </div>
-      </transition>
-    </div>
+      <JacksonPollard />
 
-    <div>
-      <strong>RFM: </strong>
-      {{ formatNumber(values.rfm, 2, "%") }}
-      <transition name="shrink-font">
-        <div v-if="!values.rfm" class="text-small">
-          Requires gender, height and waist diameter
-        </div>
-      </transition>
+      <BMIRange />
     </div>
-
-    <div>
-      <strong>Deurenberg: </strong>
-      {{ formatNumber(values.deurenberg, 2, "%") }}
-      <transition name="shrink-font">
-        <div v-if="!values.deurenberg" class="text-small">
-          Requires gender, age, weight and height.
-        </div>
-      </transition>
-    </div>
-
-    <div>
-      <strong>US Navy: </strong>
-      {{ formatNumber(values.usNavy, 2, "%") }}
-      <transition name="shrink-font">
-        <div v-if="!values.usNavy" class="text-small">
-          Requires gender, height, waist diameter<span v-if="isFemale"
-            >, hip diameter</span
-          >
-          and neck diameter.
-        </div>
-      </transition>
-    </div>
-    <!-- TODO: Remove (end) -->
   </div>
 </template>
 
 <script>
 import _ from "lodash";
 
+import AmericanCouncil from "@/components/charts/AmericanCouncil";
+import BMIRange from "@/components/charts/BMIRange";
+import JacksonPollard from "@/components/charts/JacksonPollard";
+
 export default {
   name: "Stats",
+
+  components: {
+    AmericanCouncil,
+    BMIRange,
+    JacksonPollard
+  },
 
   props: {
     isFemale: {
