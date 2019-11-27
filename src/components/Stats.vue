@@ -14,7 +14,14 @@
           <span :class="{ 'font-weight-bold': tabIndex === tab.index }"
             >{{ tab.label }}:
           </span>
-          {{ formatNumber(values[tab.field], tab.decimals, tab.unity) }}
+          <span v-if="isNumber(values[tab.field])">
+            {{ formatNumber(values[tab.field], tab.decimals, tab.unity) }}
+          </span>
+          <small v-if="!isNumber(values[tab.field])">
+            N/A<span class="text-danger" v-if="tab.index === selectedTab.index"
+              >*</span
+            >
+          </small>
         </a>
       </li>
     </ul>
@@ -22,8 +29,8 @@
     <div class="border border-top-0 p-2">
       <!-- Show error messages for missing fields -->
       <transition name="shrink-font">
-        <div v-if="!values[selectedTab.field]" class="text-danger">
-          {{ selectedTab.requiredMsg }}
+        <div v-if="!isNumber(values[selectedTab.field])" class="text-danger">
+          * {{ selectedTab.requiredMsg }}
         </div>
       </transition>
 
@@ -119,16 +126,14 @@ export default {
 
   methods: {
     formatNumber: function(number, decimals, unity) {
-      if (!_.isNumber(number)) {
-        return "N/A";
-      }
-
       let res = decimals ? +number.toFixed(decimals) : number;
       if (unity) {
         res += " " + unity;
       }
       return res;
-    }
+    },
+
+    isNumber: _.isNumber
   }
 };
 </script>
