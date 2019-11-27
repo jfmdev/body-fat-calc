@@ -15,6 +15,25 @@
 
 /* --- Animations --- */
 
+/* Shrink vertically and fade */
+
+.shrink-and-fade-enter,
+.shrink-and-fade-leave,
+.shrink-and-fade-enter-active,
+.shrink-and-fade-leave-active {
+  -webkit-transition: opacity 0.7s, max-height 0.7s;
+  -moz-transition: opacity 0.7s, max-height 0.7s;
+  transition: opacity 0.7s, max-height 0.7s;
+  overflow-y: hidden;
+  max-height: 250px;
+}
+
+.shrink-and-fade-enter,
+.shrink-and-fade-leave-to {
+  opacity: 0;
+  max-height: 0;
+}
+
 /* Shrink font */
 
 .shrink-font-enter,

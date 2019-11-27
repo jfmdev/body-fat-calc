@@ -34,11 +34,17 @@
         </div>
       </transition>
 
-      <AmericanCouncil />
+      <transition name="shrink-and-fade">
+        <div v-if="selectedTab !== TABS[0]">
+          <AmericanCouncil />
 
-      <JacksonPollard />
+          <JacksonPollard />
+        </div>
+      </transition>
 
-      <BMIRange />
+      <transition name="shrink-and-fade">
+        <BMIRange v-if="selectedTab === TABS[0]" />
+      </transition>
     </div>
   </div>
 </template>
