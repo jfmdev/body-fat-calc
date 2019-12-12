@@ -18,11 +18,12 @@
 <script>
 import _ from "lodash";
 
+import Formulas from "@/utils/formulas";
+import { IN_TO_CM, LBS_TO_KG } from "@/utils/constants";
+
 import DetailsInputs from "@/components/DetailsInputs";
 import History from "@/components/History";
 import Stats from "@/components/Stats";
-import Formulas from "@/utils/formulas";
-import { IN_TO_CM, LBS_TO_KG } from "@/utils/constants";
 
 // TODO: remove this (initialize the inputs empties).
 const DEFAULT_DETAILS = {

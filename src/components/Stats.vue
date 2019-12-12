@@ -43,7 +43,10 @@
       </transition>
 
       <transition name="shrink-and-fade">
-        <BMIRange v-if="selectedTab === TABS[0]" />
+        <BMIRange
+          v-if="selectedTab === TABS[0]"
+          :value="values[TABS[0].field]"
+        />
       </transition>
     </div>
   </div>
@@ -52,9 +55,9 @@
 <script>
 import _ from "lodash";
 
-import AmericanCouncil from "@/components/charts/AmericanCouncil";
-import BMIRange from "@/components/charts/BMIRange";
-import JacksonPollard from "@/components/charts/JacksonPollard";
+import AmericanCouncil from "@/components/reports/AmericanCouncil";
+import BMIRange from "@/components/reports/BMIRange";
+import JacksonPollard from "@/components/reports/JacksonPollard";
 
 export default {
   name: "Stats",
