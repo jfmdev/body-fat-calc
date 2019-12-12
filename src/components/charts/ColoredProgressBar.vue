@@ -1,5 +1,5 @@
 <template>
-  <div class="colored-progress-bar" :style="backgroundStyle">
+  <div class="colored-progress-bar mt-2" :style="backgroundStyle">
     <div class="colored-progress-bar_arrow" :style="arrowStyle">
       <i class="fas fa-play fa-rotate-90"></i>
     </div>
@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import { ChartColors } from "@/utils/constants";
+import _ from "lodash";
 
 export default {
   name: "ColoredProgressBar",
@@ -25,9 +25,9 @@ export default {
 
   computed: {
     arrowStyle: function() {
-      let left = "50%";
+      let left = "0%";
 
-      if (this.range && !_.isNil(this.value)) {
+      if (this.range && this.range.length && !_.isNil(this.value)) {
         const min = this.range[0].value;
         const max = this.range[this.range.length - 1].value;
 
@@ -41,7 +41,7 @@ export default {
     },
 
     backgroundStyle: function() {
-      if (this.range && !_.isNil(this.value)) {
+      if (this.range && this.range.length) {
         const min = this.range[0].value;
         const max = this.range[this.range.length - 1].value;
 

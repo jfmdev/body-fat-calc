@@ -11,12 +11,15 @@ require("../node_modules/@fortawesome/fontawesome-free/css/all.min.css");
 import "bootstrap";
 require("../node_modules/bootstrap/dist/css/bootstrap.min.css");
 
+// Custom styles.
+require("./styles.css");
+
 // Local storage.
 import VueLocalStorage from "vue-localstorage";
 Vue.use(VueLocalStorage);
 
-// Custom styles.
-require("./styles.css");
+// Directives.
+import "./utils/directives";
 
 // Define application.
 new Vue({

@@ -74,3 +74,46 @@ span.shrink-font-enter,
 span.shrink-font-leave-to {
   font-size: 0;
 }
+
+/* Fade (for directives) */
+
+.v-fade-base {
+  -webkit-transition: opacity 0.5s;
+  -moz-transition: opacity 0.5s;
+  transition: opacity 0.5s;
+
+  opacity: 1;
+}
+
+.v-fade-base.v-fade-fast {
+  -webkit-transition: opacity 0.25s;
+  -moz-transition: opacity 0.25s;
+  transition: opacity 0.25s;
+}
+
+.v-fade-base.v-fade-bellow {
+  -webkit-transition: opacity 0.5s, bottom 0.5s;
+  -moz-transition: opacity 0.5s, bottom 0.5s;
+  transition: opacity 0.5s, bottom 0.5s;
+
+  position: relative;
+  bottom: 0;
+}
+
+.v-fade-base.v-fade-bellow.v-fade-fast {
+  -webkit-transition: opacity 0.25s, bottom 0.25s;
+  -moz-transition: opacity 0.25s, bottom 0.25s;
+  transition: opacity 0.25s, bottom 0.25s;
+}
+
+.v-fade-base.v-fade-faded {
+  opacity: 0;
+}
+
+.v-fade-base.v-fade-faded.v-fade-bellow {
+  bottom: -5px;
+}
+
+.v-fade-base.v-fade-hidden {
+  display: none;
+}

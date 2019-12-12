@@ -34,20 +34,14 @@
         </div>
       </transition>
 
-      <transition name="shrink-and-fade">
-        <div v-if="selectedTab !== TABS[0]">
-          <AmericanCouncil />
+      <AmericanCouncil v-swap-fade="selectedTab !== TABS[0]" />
 
-          <JacksonPollard />
-        </div>
-      </transition>
+      <JacksonPollard v-swap-fade="selectedTab !== TABS[0]" />
 
-      <transition name="shrink-and-fade">
-        <BMIRange
-          v-if="selectedTab === TABS[0]"
-          :value="values[TABS[0].field]"
-        />
-      </transition>
+      <BMIRange
+        v-swap-fade="selectedTab === TABS[0]"
+        :value="getValue(TABS[0].field)"
+      />
     </div>
   </div>
 </template>
@@ -140,6 +134,12 @@ export default {
         res += " " + unity;
       }
       return res;
+    },
+
+    getValue: function(field) {
+      return _.isObject(this.values) && !_.isNil(this.values[field])
+        ? this.values[field]
+        : null;
     },
 
     isNumber: _.isNumber
