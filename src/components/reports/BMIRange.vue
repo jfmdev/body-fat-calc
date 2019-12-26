@@ -1,11 +1,12 @@
 <template>
   <div class="row align-items-center">
     <div class="col-sm-5">
-      TODO: Healty icon (perhaps with color)
+      <BodySilhouette :range="range" :value="value" />
+
       <ColoredProgressBar :range="range" :value="value" />
     </div>
     <div class="col-sm-7">
-      <table class="table table-bordered text-medium">
+      <table class="table table-bordered text-medium mb-0">
         <thead>
           <tr>
             <th scope="col" class="py-1 px-2">BMI</th>
@@ -31,16 +32,17 @@
 import _ from "lodash";
 
 import { ChartColors } from "@/utils/constants";
+import BodySilhouette from "@/components/charts/BodySilhouette";
 import ColoredProgressBar from "@/components/charts/ColoredProgressBar";
 
 const RANGE = [
-  { value: 10, color: ChartColors.DANGER },
-  { value: 15, color: ChartColors.WARNING },
-  { value: 18.5, color: ChartColors.GOOD },
-  { value: 21.75, color: ChartColors.EXCELLENT },
-  { value: 25, color: ChartColors.GOOD },
-  { value: 30, color: ChartColors.WARNING },
-  { value: 40, color: ChartColors.DANGER }
+  { value: 10, color: ChartColors.DANGER, body: "thin" },
+  { value: 15, color: ChartColors.WARNING, body: "thin" },
+  { value: 18.5, color: ChartColors.GOOD, body: "normal" },
+  { value: 21.75, color: ChartColors.EXCELLENT, body: "strong" },
+  { value: 25, color: ChartColors.GOOD, body: "normal" },
+  { value: 30, color: ChartColors.WARNING, body: "overweight" },
+  { value: 40, color: ChartColors.DANGER, body: "obese" }
 ];
 
 const TABLE = [
@@ -54,7 +56,7 @@ const TABLE = [
     min: 18.5,
     max: 25,
     title: "Between 18.5 and 25",
-    description: "you're in the healthy weight range"
+    description: "You're in the healthy weight range"
   },
   {
     min: 25,
@@ -74,6 +76,7 @@ export default {
   name: "BMIRange",
 
   components: {
+    BodySilhouette,
     ColoredProgressBar
   },
 

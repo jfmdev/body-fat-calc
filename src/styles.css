@@ -34,6 +34,14 @@
   position: absolute;
   }
 
+/* --- Body silhouette --- */
+
+.body-silhouette {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto;
+}
+
 /* --- Animations --- */
 
 /* Shrink vertically and fade */
