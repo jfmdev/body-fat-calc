@@ -4,6 +4,7 @@
 
 <script>
 import _ from "lodash";
+import TinyColor from "tinycolor2";
 
 export default {
   name: "BodySilhouette",
@@ -43,8 +44,15 @@ export default {
               const middleValue =
                 (this.range[i - 1].value + this.range[i].value) / 2;
               bodyType = this.range[this.value < middleValue ? i - 1 : i].body;
-              bodyColor = this.range[this.value < middleValue ? i - 1 : i]
-                .color;
+
+              const percentage =
+                (this.range[i].value - this.value) /
+                (this.range[i].value - this.range[i - 1].value);
+              bodyColor = TinyColor.mix(
+                this.range[i].color,
+                this.range[i - 1].color,
+                percentage * 100
+              );
             }
           }
         }
