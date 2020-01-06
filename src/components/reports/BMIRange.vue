@@ -7,12 +7,6 @@
     </div>
     <div class="col-sm-7">
       <table class="table table-bordered text-medium mb-0">
-        <thead>
-          <tr>
-            <th scope="col" class="py-1 px-2">BMI</th>
-            <th scope="col" class="py-1 px-2">Result</th>
-          </tr>
-        </thead>
         <tbody>
           <tr
             v-for="(row, index) in table"
