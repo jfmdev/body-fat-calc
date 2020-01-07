@@ -10,6 +10,7 @@
         <tbody>
           <tr
             v-for="(row, index) in table"
+            class="table-bg-anim"
             :class="{ 'table-info': index === activeRow }"
             :key="index"
           >
@@ -90,7 +91,7 @@ export default {
 
   computed: {
     activeRow: function() {
-      if (!_.isNil(this.value) && this.value > 0) {
+      if (!_.isNil(this.value)) {
         const row = _.find(
           TABLE,
           row =>

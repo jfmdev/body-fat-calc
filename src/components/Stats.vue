@@ -73,9 +73,9 @@
           </div>
         </transition>
 
-        <AmericanCouncil />
+        <AmericanCouncil class="mt-2" :value="BFP" :is-female="isFemale" />
 
-        <JacksonPollard />
+        <JacksonPollard class="mt-2" :value="BFP" :is-female="isFemale" />
       </div>
       <!-- BFP (end) -->
     </div>
@@ -120,6 +120,10 @@ export default {
   computed: {
     selectedMethod: function() {
       return _.find(this.METHODS, method => method.index === this.methodIndex);
+    },
+
+    BFP: function() {
+      return this.getValue(this.selectedMethod.field);
     },
 
     BMI: function() {
