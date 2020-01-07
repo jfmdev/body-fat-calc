@@ -100,6 +100,13 @@ export default {
       // TODO: Add values to local storage.
       // localStorage.push({ details, result });
     }
+  },
+
+  mounted() {
+    // Calculate stats for default details (if available).
+    if (this.details) {
+      this.calculateStats(this.details);
+    }
   }
 };
 </script>
