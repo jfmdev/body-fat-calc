@@ -215,6 +215,8 @@
 </template>
 
 <script>
+import _ from "lodash";
+
 import { IN_TO_CM, LBS_TO_KG } from "@/utils/constants";
 
 export default {
@@ -249,7 +251,28 @@ export default {
 
   methods: {
     detailsUpdated() {
-      this.$emit("input", this.value);
+      // Convert values to metric system before propagating.
+      const newValues = {
+        age: parseInt(this.age),
+        height: this.toCm(this.height),
+        weight: this.toCm(this.weight),
+        waist: this.toCm(this.waist),
+        hip: this.toCm(this.hip),
+        neck: this.toCm(this.neck),
+        ..._.pick(this.value, "system", "gender")
+      };
+
+      this.$emit("input", newValues);
+    },
+
+    toCm(distance) {
+      return Math.floor(
+        parseInt(distance, 10) * (this.isMetric ? 1 : IN_TO_CM)
+      );
+    },
+
+    toKg(weight) {
+      return Math.floor(parseInt(weight, 10) * (this.isMetric ? 1 : LBS_TO_KG));
     },
 
     lengthExample(valueInCm) {
