@@ -7,7 +7,7 @@
         <DetailsInputs v-model="details" @input="calculateStats" />
       </div>
       <div class="col-md-8">
-        <Stats :values="results" :is-female="isFemale" />
+        <Stats :values="results" :is-female="isFemale" :age="age" />
       </div>
     </div>
 
@@ -57,6 +57,9 @@ export default {
   },
 
   computed: {
+    age: function() {
+      return this.details.age;
+    },
     isFemale: function() {
       return this.details.gender === "F";
     }

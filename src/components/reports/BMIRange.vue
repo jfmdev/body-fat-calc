@@ -1,12 +1,7 @@
 <template>
   <div class="row align-items-center">
-    <div class="col-sm-5">
-      <BodySilhouette :range="range" :value="value" />
-
-      <ColoredProgressBar :range="range" :value="value" />
-    </div>
     <div class="col-sm-7">
-      <table class="table table-bordered text-medium mb-0">
+      <table class="table table-bordered text-small mb-0">
         <tbody>
           <tr
             v-for="(row, index) in table"
@@ -14,11 +9,16 @@
             :class="{ 'table-info': index === activeRow }"
             :key="index"
           >
-            <td class="py-1 px-2">{{ row.title }}</td>
-            <td class="py-1 px-2">{{ row.description }}</td>
+            <td class="py-1 px-1">{{ row.title }}</td>
+            <td class="py-1 px-1">{{ row.description }}</td>
           </tr>
         </tbody>
       </table>
+    </div>
+    <div class="col-sm-5">
+      <BodySilhouette :range="range" :value="value" />
+
+      <ColoredProgressBar :range="range" :value="value" />
     </div>
   </div>
 </template>

@@ -16,7 +16,7 @@
           </span>
         </div>
 
-        <BMIRange :value="BMI" />
+        <BMIRange class="mt-2" :value="BMI" />
       </div>
       <!-- BMI (end) -->
 
@@ -75,7 +75,12 @@
 
         <AmericanCouncil class="mt-2" :value="BFP" :is-female="isFemale" />
 
-        <JacksonPollard class="mt-2" :value="BFP" :is-female="isFemale" />
+        <JacksonPollard
+          class="mt-2"
+          :value="BFP"
+          :is-female="isFemale"
+          :age="age"
+        />
       </div>
       <!-- BFP (end) -->
     </div>
@@ -99,6 +104,10 @@ export default {
   },
 
   props: {
+    age: {
+      type: Number,
+      default: null
+    },
     isFemale: {
       type: Boolean,
       default: false
