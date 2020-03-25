@@ -12,13 +12,13 @@
           <div class="col-sm-5">
             <div class="form-check">
               <input
-                v-model="value.system"
+                value="M"
+                name="system"
+                :checked="value.system === 'M'"
+                @change="updateInput"
                 class="form-check-input"
                 type="radio"
-                name="system"
                 id="calc_system_m"
-                value="M"
-                @change="detailsUpdated"
               />
               <label class="form-check-label clickable" for="calc_system_m">
                 Metric
@@ -29,13 +29,13 @@
           <div class="col-sm-5">
             <div class="form-check">
               <input
-                v-model="value.system"
+                value="E"
+                name="system"
+                :checked="value.system === 'E'"
+                @change="updateInput"
                 class="form-check-input"
                 type="radio"
-                name="system"
                 id="calc_system_e"
-                value="E"
-                @change="detailsUpdated"
               />
               <label class="form-check-label clickable" for="calc_system_e">
                 English
@@ -52,13 +52,13 @@
           <div class="col-sm-5">
             <div class="form-check">
               <input
-                v-model="value.gender"
+                value="F"
+                name="gender"
+                :checked="value.gender === 'F'"
+                @change="updateInput"
                 class="form-check-input"
                 type="radio"
-                name="gender"
                 id="calc_gender_f"
-                value="F"
-                @change="detailsUpdated"
               />
               <label class="form-check-label clickable" for="calc_gender_f">
                 Female
@@ -68,13 +68,13 @@
           <div class="col-sm-5">
             <div class="form-check">
               <input
-                v-model="value.gender"
+                value="M"
+                name="gender"
+                :checked="value.gender === 'M'"
+                @change="updateInput"
                 class="form-check-input"
                 type="radio"
-                name="gender"
                 id="calc_gender_m"
-                value="M"
-                @change="detailsUpdated"
               />
               <label class="form-check-label clickable" for="calc_gender_m">
                 Male
@@ -91,14 +91,14 @@
           </div>
           <div class="col-sm-8">
             <input
-              v-model="value.age"
+              name="age"
+              :value="value.age"
+              @input="updateInput"
+              @change="updateInput"
               class="form-control text-medium px-2 py-1"
               type="number"
-              name="age"
               id="calc_age"
               placeholder="e.g. 35 (years)"
-              @input="detailsUpdated"
-              @change="detailsUpdated"
             />
           </div>
         </div>
@@ -111,14 +111,14 @@
           </div>
           <div class="col-sm-8">
             <input
-              v-model="value.height"
+              name="height"
+              :value="value.height"
+              @input="updateInput"
+              @change="updateInput"
               class="form-control text-medium px-2 py-1"
               type="number"
-              name="height"
               id="calc_height"
               :placeholder="lengthExample(175)"
-              @input="detailsUpdated"
-              @change="detailsUpdated"
             />
           </div>
         </div>
@@ -130,14 +130,14 @@
           </div>
           <div class="col-sm-8">
             <input
-              v-model="value.weight"
-              class="form-control text-medium px-2 py-1"
-              type="number"
               name="weight"
+              :value="value.weight"
+              @input="updateInput"
+              @change="updateInput"
+              type="number"
+              class="form-control text-medium px-2 py-1"
               id="calc_weight"
               :placeholder="weightExample(75)"
-              @input="detailsUpdated"
-              @change="detailsUpdated"
             />
           </div>
         </div>
@@ -149,14 +149,14 @@
           </div>
           <div class="col-sm-8">
             <input
-              v-model="value.neck"
+              name="neck"
+              :value="value.neck"
+              @input="updateInput"
+              @change="updateInput"
               class="form-control text-medium px-2 py-1"
               type="number"
-              name="neck"
               id="calc_neck"
               :placeholder="lengthExample(35)"
-              @input="detailsUpdated"
-              @change="detailsUpdated"
             />
           </div>
         </div>
@@ -171,14 +171,14 @@
           </div>
           <div class="col-sm-8">
             <input
-              v-model="value.waist"
+              name="waist"
+              :value="value.waist"
+              @input="updateInput"
+              @change="updateInput"
               class="form-control text-medium px-2 py-1"
               type="number"
-              name="waist"
               id="calc_waist"
               :placeholder="lengthExample(85)"
-              @input="detailsUpdated"
-              @change="detailsUpdated"
             />
           </div>
         </div>
@@ -194,14 +194,14 @@
             </div>
             <div class="col-sm-8">
               <input
-                v-model="value.hip"
+                name="hip"
+                :value="value.hip"
+                @input="updateInput"
+                @change="updateInput"
                 class="form-control text-medium px-2 py-1"
                 type="number"
-                name="hip"
                 id="calc_hip"
                 :placeholder="lengthExample(95)"
-                @input="detailsUpdated"
-                @change="detailsUpdated"
               />
             </div>
           </div>
@@ -216,63 +216,42 @@
 
 <script>
 import _ from "lodash";
+import { mapGetters, mapMutations, mapState } from "vuex";
 
 import { IN_TO_CM, LBS_TO_KG } from "@/utils/constants";
+
+const isNumeric = value => !_.isNil(value) && !isNaN(value);
 
 export default {
   name: "DetailsInputs",
 
-  props: {
-    value: {
-      type: Object,
-      default: function() {
-        return {};
-      }
-    }
-  },
-
   computed: {
-    isFemale() {
-      return this.value.gender === "F";
-    },
+    ...mapState({
+      value: state => state.input
+    }),
 
-    isMetric() {
-      return this.value.system === "M";
-    },
-
-    lengthUnit() {
-      return this.isMetric ? "cm" : "in";
-    },
-
-    weightUnit() {
-      return this.isMetric ? "kg" : "lbs";
-    }
+    ...mapGetters({
+      isFemale: "isFemale",
+      isMetric: "isMetric",
+      lengthUnit: "lengthUnit",
+      weightUnit: "weightUnit"
+    })
   },
 
   methods: {
-    detailsUpdated() {
-      // Convert values to metric system before propagating.
-      const newValues = {
-        age: parseInt(this.age),
-        height: this.toCm(this.height),
-        weight: this.toCm(this.weight),
-        waist: this.toCm(this.waist),
-        hip: this.toCm(this.hip),
-        neck: this.toCm(this.neck),
-        ..._.pick(this.value, "system", "gender")
-      };
+    updateInput(evt) {
+      const newInput = {};
+      const { name, value } = evt.target;
 
-      this.$emit("input", newValues);
-    },
+      if (["age", "height", "waist", "hip", "neck"].indexOf(name) >= 0) {
+        // Parse Number.
+        newInput[name] = isNumeric(value) ? parseInt(value, 10) : null;
+      } else {
+        // Set string.
+        newInput[name] = value;
+      }
 
-    toCm(distance) {
-      return Math.floor(
-        parseInt(distance, 10) * (this.isMetric ? 1 : IN_TO_CM)
-      );
-    },
-
-    toKg(weight) {
-      return Math.floor(parseInt(weight, 10) * (this.isMetric ? 1 : LBS_TO_KG));
+      this.commitInput(newInput);
     },
 
     lengthExample(valueInCm) {
@@ -287,7 +266,11 @@ export default {
         ? valueInKg
         : Math.floor(valueInKg / LBS_TO_KG);
       return `e.g. ${value} (${this.weightUnit})`;
-    }
+    },
+
+    ...mapMutations({
+      commitInput: "input"
+    })
   }
 };
 </script>

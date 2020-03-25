@@ -28,6 +28,7 @@
 
 <script>
 import _ from "lodash";
+import { mapGetters, mapState } from "vuex";
 
 import { ChartColors } from "@/utils/constants";
 import BodySilhouette from "@/components/charts/BodySilhouette";
@@ -64,14 +65,6 @@ export default {
   },
 
   props: {
-    age: {
-      type: Number,
-      default: null
-    },
-    isFemale: {
-      type: Boolean,
-      default: false
-    },
     value: {
       type: Number,
       default: null
@@ -124,7 +117,15 @@ export default {
 
     table: function() {
       return this.isFemale ? TABLE_FEMALE : TABLE_MALE;
-    }
+    },
+
+    ...mapState({
+      age: state => (state.input ? state.input.age : null)
+    }),
+
+    ...mapGetters({
+      isFemale: "isFemale"
+    })
   }
 };
 </script>

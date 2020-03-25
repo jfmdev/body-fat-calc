@@ -8,15 +8,15 @@
       <div>
         <div>
           <strong>Body Mass Index:</strong>
-          <span v-swap-fade="isNumber(BMI)">
-            {{ formatNumber(BMI, 1, null) }}
+          <span v-swap-fade="isNumber(bmi)">
+            {{ formatNumber(bmi, 1, null) }}
           </span>
-          <span v-swap-fade="!isNumber(BMI)">
+          <span v-swap-fade="!isNumber(bmi)">
             N/A <span class="text-danger">(requires weight and height)</span>
           </span>
         </div>
 
-        <BMIRange class="mt-2" :value="BMI" />
+        <BMIRange class="mt-2" :value="bmi" />
       </div>
       <!-- BMI (end) -->
 
@@ -27,37 +27,31 @@
           <div class="col">
             <strong>Body Fat Percentage:</strong>
           </div>
-          <div class="col" v-for="method in METHODS" :key="method.index">
+          <div class="col" v-for="bfpMethod in BFPs" :key="bfpMethod.index">
             <div class="form-check">
               <input
                 class="form-check-input clickable"
                 type="radio"
-                :value="method.index"
-                v-model="methodIndex"
+                :value="bfpMethod.index"
+                v-model="bfpIndex"
               />
               <label
-                @click="methodIndex = method.index"
+                @click="bfpIndex = bfpMethod.index"
                 class="form-check-label clickable"
               >
-                <span :class="{ 'text-muted': method.index !== methodIndex }">
-                  <span v-if="isNumber(values[method.field])">
-                    {{
-                      formatNumber(
-                        values[method.field],
-                        method.decimals,
-                        method.unity
-                      )
-                    }}
+                <span :class="{ 'text-muted': bfpMethod.index !== bfpIndex }">
+                  <span v-if="isNumber(bfpMethod.value)">
+                    {{ formatNumber(bfpMethod.value, 2, "%") }}
                   </span>
-                  <small v-if="!isNumber(values[method.field])">
+                  <small v-else>
                     N/A<span
                       class="text-danger"
-                      v-if="method.index === methodIndex"
+                      v-if="bfpMethod.index === bfpIndex"
                       >*</span
                     >
                   </small>
                 </span>
-                <span class="text-muted">({{ method.label }})</span>
+                <span class="text-muted">({{ bfpMethod.label }})</span>
               </label>
             </div>
           </div>
@@ -65,22 +59,14 @@
 
         <!-- Error messages for missing fields -->
         <transition name="shrink-font">
-          <div
-            v-if="!isNumber(values[selectedMethod.field])"
-            class="text-danger"
-          >
-            * {{ selectedMethod.requiredMsg }}
+          <div v-if="!isNumber(selectedBfp.value)" class="text-danger">
+            * {{ selectedBfp.requiredMsg }}
           </div>
         </transition>
 
-        <AmericanCouncil class="mt-2" :value="BFP" :is-female="isFemale" />
+        <AmericanCouncil class="mt-2" :value="selectedBfp.value" />
 
-        <JacksonPollard
-          class="mt-2"
-          :value="BFP"
-          :is-female="isFemale"
-          :age="age"
-        />
+        <JacksonPollard class="mt-2" :value="selectedBfp.value" />
       </div>
       <!-- BFP (end) -->
     </div>
@@ -89,6 +75,7 @@
 
 <script>
 import _ from "lodash";
+import { mapGetters } from "vuex";
 
 import AmericanCouncil from "@/components/reports/AmericanCouncil";
 import BMIRange from "@/components/reports/BMIRange";
@@ -103,73 +90,49 @@ export default {
     JacksonPollard
   },
 
-  props: {
-    age: {
-      type: Number,
-      default: null
-    },
-    isFemale: {
-      type: Boolean,
-      default: false
-    },
-    values: {
-      type: Object,
-      default: function() {
-        return {};
-      }
-    }
-  },
-
   data: function() {
     return {
-      methodIndex: 0
+      bfpIndex: 0
     };
   },
 
   computed: {
-    selectedMethod: function() {
-      return _.find(this.METHODS, method => method.index === this.methodIndex);
+    selectedBfp: function() {
+      return _.find(this.BFPs, bfp => bfp.index === this.bfpIndex);
     },
 
-    BFP: function() {
-      return this.getValue(this.selectedMethod.field);
-    },
-
-    BMI: function() {
-      return this.getValue("bmi");
-    },
-
-    METHODS: function() {
+    BFPs: function() {
       return [
         {
           index: 0,
           label: "RFM",
-          field: "rfm",
-          decimals: 2,
-          unity: "%",
+          value: this.rfm,
           requiredMsg: "Requires gender, height and waist diameter."
         },
         {
           index: 1,
           label: "Deurenberg",
-          field: "deurenberg",
-          decimals: 2,
-          unity: "%",
+          value: this.deurenberg,
           requiredMsg: "Requires gender, age, weight and height."
         },
         {
           index: 2,
           label: "US Navy",
-          field: "usNavy",
-          decimals: 2,
-          unity: "%",
+          value: this.usNavy,
           requiredMsg:
             "Requires gender, height, waist diameter" +
             (this.isFemale ? ", hip diameter" : "") +
             " and neck diameter."
         }
       ];
-    }
+    },
+
+    ...mapGetters({
+      bmi: "bmi",
+      deurenberg: "deurenberg",
+      rfm: "rfm",
+      usNavy: "usNavy"
+    })
   },
 
   methods: {
@@ -182,12 +145,6 @@ export default {
         return res;
       }
       return "";
-    },
-
-    getValue: function(field) {
-      return _.isObject(this.values) && !_.isNil(this.values[field])
-        ? this.values[field]
-        : null;
     },
 
     isNumber: _.isNumber

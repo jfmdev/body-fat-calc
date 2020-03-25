@@ -25,6 +25,7 @@
 
 <script>
 import _ from "lodash";
+import { mapGetters } from "vuex";
 
 import { ChartColors } from "@/utils/constants";
 import BodySilhouette from "@/components/charts/BodySilhouette";
@@ -75,13 +76,6 @@ export default {
     ColoredProgressBar
   },
 
-  props: {
-    value: {
-      type: Number,
-      default: 0
-    }
-  },
-
   data() {
     return {
       range: RANGE,
@@ -101,7 +95,11 @@ export default {
         return row ? TABLE.indexOf(row) : null;
       }
       return null;
-    }
+    },
+
+    ...mapGetters({
+      value: "bmi"
+    })
   }
 };
 </script>
