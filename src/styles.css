@@ -20,7 +20,11 @@
   transition: background-color 0.3s;
 }
 
-/* --- Colores progress bar --- */
+.bg-info-light {
+  background-color: #d9f0ff;
+}
+
+/* --- Progress bar colours --- */
 
 .colored-progress-bar {
   height: 20px;

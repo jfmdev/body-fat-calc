@@ -1,27 +1,26 @@
 <template>
-  <div class="card text-medium">
-    <div class="card-header p-2 text-center">
-      Your results
-    </div>
-    <div class="card-body p-2">
-      <!-- BMI (start) -->
-      <div>
-        <div>
-          <strong>Body Mass Index:</strong>
-          <span v-swap-fade="isNumber(bmi)">
-            {{ formatNumber(bmi, 1, null) }}
-          </span>
-          <span v-swap-fade="!isNumber(bmi)">
-            N/A <span class="text-danger">(requires weight and height)</span>
-          </span>
-        </div>
+  <div>
+    <!-- BMI (start) -->
+    <div class="card text-medium">
+      <div class="card-header px-2 py-1 bg-info-light">
+        <strong>Body Mass Index:</strong>
+        <span v-swap-fade="isNumber(bmi)">
+          {{ formatNumber(bmi, 1, null) }}
+        </span>
+        <span v-swap-fade="!isNumber(bmi)">
+          N/A <small class="text-danger">(requires weight and height)</small>
+        </span>
+      </div>
 
+      <div class="card-body py-2 px-0">
         <BMIRange class="mt-2" :value="bmi" />
       </div>
-      <!-- BMI (end) -->
+    </div>
+    <!-- BMI (end) -->
 
-      <!-- BFP (start) -->
-      <div class="mt-3">
+    <!-- BFP (start) -->
+    <div class="card text-medium mt-3">
+      <div class="card-header px-2 py-1 bg-info-light">
         <!-- BFP Title -->
         <div class="row">
           <div class="col">
@@ -51,25 +50,30 @@
                     >
                   </small>
                 </span>
-                <span class="text-muted">({{ bfpMethod.label }})</span>
+                <span class="text-muted ml-1">({{ bfpMethod.label }})</span>
               </label>
             </div>
+            <transition name="shrink-font">
+              <div
+                v-if="
+                  !isNumber(bfpMethod.value) && bfpMethod.index === bfpIndex
+                "
+                class="text-danger"
+              >
+                <small>* {{ bfpMethod.requiredMsg }}</small>
+              </div>
+            </transition>
           </div>
         </div>
+      </div>
 
-        <!-- Error messages for missing fields -->
-        <transition name="shrink-font">
-          <div v-if="!isNumber(selectedBfp.value)" class="text-danger">
-            * {{ selectedBfp.requiredMsg }}
-          </div>
-        </transition>
-
+      <div class="card-body py-2 px-0">
         <AmericanCouncil class="mt-2" :value="selectedBfp.value" />
 
         <JacksonPollard class="mt-2" :value="selectedBfp.value" />
       </div>
-      <!-- BFP (end) -->
     </div>
+    <!-- BFP (end) -->
   </div>
 </template>
 

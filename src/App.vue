@@ -1,17 +1,12 @@
 <template>
-  <div id="app" class="container">
+  <div id="app" class="container-fluid">
     <h1 class="text-center mb-2">Body Fat Calculator</h1>
 
-    <div class="row">
-      <div class="col-md-4">
-        <DetailsInputs />
-      </div>
-      <div class="col-md-8">
-        <Stats />
-      </div>
-    </div>
+    <DetailsInputs />
 
-    <History />
+    <Stats class="mt-2" />
+
+    <History class="mt-2" />
   </div>
 </template>
 
