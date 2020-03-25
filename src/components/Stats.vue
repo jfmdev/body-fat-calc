@@ -20,13 +20,13 @@
 
     <!-- BFP (start) -->
     <div class="card text-medium mt-3">
-      <div class="card-header px-2 py-1 bg-info-light">
+      <div class="card-header pl-2 pr-5 py-1 bg-info-light">
         <!-- BFP Title -->
-        <div class="row">
-          <div class="col">
+        <div class="d-flex justify-content-between">
+          <div>
             <strong>Body Fat Percentage:</strong>
           </div>
-          <div class="col" v-for="bfpMethod in BFPs" :key="bfpMethod.index">
+          <div v-for="bfpMethod in BFPs" :key="bfpMethod.index">
             <div class="form-check">
               <input
                 class="form-check-input clickable"

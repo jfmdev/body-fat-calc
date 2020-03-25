@@ -1,24 +1,27 @@
 <template>
-  <div class="row align-items-center">
-    <div class="col-sm-7">
-      <table class="table table-bordered text-small mb-0">
-        <tbody>
-          <tr
-            v-for="(row, index) in table"
-            class="table-bg-anim"
-            :class="{ 'table-info': index === activeRow }"
-            :key="index"
-          >
-            <td class="py-1 px-1">{{ row.title }}</td>
-            <td class="py-1 px-1">{{ row.description }}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="col-sm-5">
-      <BodySilhouette :range="range" :value="value" />
+  <div class="container-fluid">
+    <div class="row align-items-center">
+      <div class="col-lg-4 col-md-5 col-sm-6">
+        <table class="table table-bordered text-small mb-0">
+          <tbody>
+            <tr
+              v-for="(row, index) in table"
+              class="table-bg-anim"
+              :class="{ 'table-info': index === activeRow }"
+              :key="index"
+            >
+              <td class="py-1 px-1">{{ row.title }}</td>
+              <td class="py-1 px-1">{{ row.description }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
-      <ColoredProgressBar :range="range" :value="value" />
+      <div class="col-lg-4 col-md-5 col-sm-6 offset-lg-4 offset-md-2">
+        <BodySilhouette :range="range" :value="value" />
+
+        <ColoredProgressBar :range="range" :value="value" />
+      </div>
     </div>
   </div>
 </template>
