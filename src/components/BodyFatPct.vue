@@ -57,11 +57,14 @@
 import _ from "lodash";
 import { mapGetters } from "vuex";
 
+import { numericUtils } from "@/utils/mixins";
 import AmericanCouncil from "@/components/reports/AmericanCouncil";
 import JacksonPollard from "@/components/reports/JacksonPollard";
 
 export default {
   name: "BodyFatPct",
+
+  mixins: [numericUtils],
 
   components: {
     AmericanCouncil,
@@ -111,21 +114,6 @@ export default {
       rfm: "rfm",
       usNavy: "usNavy"
     })
-  },
-
-  methods: {
-    formatNumber: function(number, decimals, unity) {
-      if (_.isNumber(number)) {
-        let res = decimals ? +number.toFixed(decimals) : number;
-        if (unity) {
-          res += unity;
-        }
-        return res;
-      }
-      return "";
-    },
-
-    isNumber: _.isNumber
   }
 };
 </script>

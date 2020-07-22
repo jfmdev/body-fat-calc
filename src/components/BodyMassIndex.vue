@@ -2,10 +2,10 @@
   <div class="card text-medium">
     <div class="card-header px-2 py-1 bg-info-light">
       <strong>Body Mass Index:</strong>
-      <span v-swap-fade="isNumber(bmi)">
-        {{ formatNumber(bmi, 1, null) }}
+      <span v-swap-fade="isNumber(value)">
+        {{ formatNumber(value, 1, null) }}
       </span>
-      <span v-swap-fade="!isNumber(bmi)">
+      <span v-swap-fade="!isNumber(value)">
         N/A <small class="text-danger">(requires weight and height)</small>
       </span>
     </div>
@@ -43,6 +43,7 @@ import _ from "lodash";
 import { mapGetters } from "vuex";
 
 import { ChartColors } from "@/utils/constants";
+import { numericUtils } from "@/utils/mixins";
 import BodySilhouette from "@/components/charts/BodySilhouette";
 import ColoredProgressBar from "@/components/charts/ColoredProgressBar";
 
@@ -86,6 +87,8 @@ const TABLE = [
 export default {
   name: "BodyMassIndex",
 
+  mixins: [numericUtils],
+
   components: {
     BodySilhouette,
     ColoredProgressBar
@@ -115,21 +118,6 @@ export default {
     ...mapGetters({
       value: "bmi"
     })
-  },
-
-  methods: {
-    formatNumber: function(number, decimals, unity) {
-      if (_.isNumber(number)) {
-        let res = decimals ? +number.toFixed(decimals) : number;
-        if (unity) {
-          res += unity;
-        }
-        return res;
-      }
-      return "";
-    },
-
-    isNumber: _.isNumber
   }
 };
 </script>
