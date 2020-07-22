@@ -56,13 +56,18 @@
             </div>
 
             <div class="col-md-6">
-              <p class="my-2">
-                The body mass index (BMI) is a measure that uses your height and
-                weight to work out if your weight is healthy.
+              <p class="mb-1">
+                The Body Mass Index (BMI) is a measure that allows the
+                comparison of the adiposity of individuals of different heights
+                and weights, and to broadly categorize a person as underweight,
+                normal weight, overweight, or obese.
               </p>
-              <p class="my-2">
-                The BMI calculation divides an adult's weight in kilograms by
-                their height in metres squared.
+              <p class="mb-0">
+                The BMI is a useful indicator of overall fitness for a large
+                group of people, but a poor tool for determining the health of
+                an individual (although the BMI largely increases as adiposity
+                increases, other factors like greater muscle mass or larger
+                bones also increase it).
               </p>
             </div>
           </div>
