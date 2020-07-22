@@ -1,26 +1,38 @@
 <template>
-  <div class="container-fluid">
-    <div class="row align-items-center">
-      <div class="col-lg-4 col-md-5 col-sm-6">
-        <table class="table table-bordered text-small mb-0">
-          <tbody>
-            <tr
-              v-for="(row, index) in table"
-              class="table-bg-anim"
-              :class="{ 'table-info': index === activeRow }"
-              :key="index"
-            >
-              <td class="py-1 px-1">{{ row.title }}</td>
-              <td class="py-1 px-1">{{ row.description }}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+  <div class="card text-medium">
+    <div class="card-header px-2 py-1 bg-info-light">
+      <strong>Body Mass Index:</strong>
+      <span v-swap-fade="isNumber(bmi)">
+        {{ formatNumber(bmi, 1, null) }}
+      </span>
+      <span v-swap-fade="!isNumber(bmi)">
+        N/A <small class="text-danger">(requires weight and height)</small>
+      </span>
+    </div>
 
-      <div class="col-lg-4 col-md-5 col-sm-6 offset-lg-4 offset-md-2">
-        <BodySilhouette :range="range" :value="value" />
+    <div class="card-body py-2 px-0">
+      <div class="row align-items-center">
+        <div class="col-lg-4 col-md-5 col-sm-6">
+          <table class="table table-bordered text-small mb-0">
+            <tbody>
+              <tr
+                v-for="(row, index) in table"
+                class="table-bg-anim"
+                :class="{ 'table-info': index === activeRow }"
+                :key="index"
+              >
+                <td class="py-1 px-1">{{ row.title }}</td>
+                <td class="py-1 px-1">{{ row.description }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
 
-        <ColoredProgressBar :range="range" :value="value" />
+        <div class="col-lg-4 col-md-5 col-sm-6 offset-lg-4 offset-md-2">
+          <BodySilhouette :range="range" :value="value" />
+
+          <ColoredProgressBar :range="range" :value="value" />
+        </div>
       </div>
     </div>
   </div>
@@ -72,7 +84,7 @@ const TABLE = [
 ];
 
 export default {
-  name: "BMIRange",
+  name: "BodyMassIndex",
 
   components: {
     BodySilhouette,
@@ -103,6 +115,21 @@ export default {
     ...mapGetters({
       value: "bmi"
     })
+  },
+
+  methods: {
+    formatNumber: function(number, decimals, unity) {
+      if (_.isNumber(number)) {
+        let res = decimals ? +number.toFixed(decimals) : number;
+        if (unity) {
+          res += unity;
+        }
+        return res;
+      }
+      return "";
+    },
+
+    isNumber: _.isNumber
   }
 };
 </script>

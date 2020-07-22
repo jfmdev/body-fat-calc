@@ -4,25 +4,28 @@
 
     <div class="row">
       <div class="col-lg-4 col-md-4 col-sm-6">
-        <DetailsInputs />
+        <Inputs />
       </div>
       <div class="col-lg-8 col-md-8 col-sm-6">
-        <Stats />
+        <BodyMassIndex />
+        <BodyFatPct class="mt-2" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import DetailsInputs from "@/components/DetailsInputs";
-import Stats from "@/components/Stats";
+import BodyFatPct from "@/components/BodyFatPct";
+import BodyMassIndex from "@/components/BodyMassIndex";
+import Inputs from "@/components/Inputs";
 
 export default {
   name: "App",
 
   components: {
-    DetailsInputs,
-    Stats
+    BodyFatPct,
+    BodyMassIndex,
+    Inputs
   }
 };
 </script>
