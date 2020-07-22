@@ -1,6 +1,6 @@
 import _ from "lodash";
 
-export const numericUtils = {
+export const NumericUtils = {
   methods: {
     formatNumber: function(number, decimals, unity) {
       if (_.isNumber(number)) {
@@ -18,5 +18,5 @@ export const numericUtils = {
 };
 
 export default {
-  numericUtils
+  NumericUtils
 };

@@ -1,61 +1,84 @@
 <template>
   <div class="card text-medium">
     <div class="card-header px-2 py-1 bg-info-light">
-      <strong>Body Mass Index:</strong>
-      <span v-swap-fade="isNumber(value)">
-        {{ formatNumber(value, 1, null) }}
-      </span>
-      <span v-swap-fade="!isNumber(value)">
-        N/A <small class="text-danger">(requires weight and height)</small>
-      </span>
-    </div>
+      <div class="d-flex">
+        <div class="flex-1">
+          <strong>Body Mass Index:</strong>
 
-    <div class="card-body py-2 px-0">
-      <div class="row align-items-center">
-        <div class="col-lg-4 col-md-5 col-sm-6">
-          <table class="table table-bordered text-small mb-0">
-            <tbody>
-              <tr
-                v-for="(row, index) in table"
-                class="table-bg-anim"
-                :class="{ 'table-info': index === activeRow }"
-                :key="index"
-              >
-                <td class="py-1 px-1">{{ row.title }}</td>
-                <td class="py-1 px-1">{{ row.description }}</td>
-              </tr>
-            </tbody>
-          </table>
+          <transition name="fade" mode="out-in">
+            <span v-if="isNumber(value)" key="value">
+              {{ formatNumber(value, 1, null) }}
+            </span>
+            <span v-else key="na">
+              N/A
+              <small class="text-danger">(requires weight and height)</small>
+            </span>
+          </transition>
+
+          <transition name="fade-x2">
+            <span v-if="!expanded && activeRow >= 0" class="text-muted">
+              ({{ TABLE[activeRow].description.toLowerCase() }})
+            </span>
+          </transition>
         </div>
 
-        <div class="col-lg-4 col-md-5 col-sm-6 offset-lg-4 offset-md-2">
-          <BodySilhouette :range="range" :value="value" />
-
-          <ColoredProgressBar :range="range" :value="value" />
+        <div>
+          <button class="btn px-1 py-0" @click="toggleExpanded">
+            <i
+              class="fas"
+              :class="
+                expanded ? 'fa-chevron-circle-up' : 'fa-chevron-circle-down'
+              "
+            ></i>
+          </button>
         </div>
       </div>
     </div>
+
+    <transition name="fade-x2">
+      <div v-if="expanded" class="card-body py-2 px-0">
+        <div class="container-fluid">
+          <div class="row align-items-center">
+            <div class="col-md-6">
+              <table class="table table-bordered text-small mb-0">
+                <tbody>
+                  <tr
+                    v-for="(row, index) in TABLE"
+                    class="table-bg-anim"
+                    :class="{ 'table-info': index === activeRow }"
+                    :key="index"
+                  >
+                    <td class="py-1 px-1">{{ row.title }}</td>
+                    <td class="py-1 px-1">{{ row.description }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="col-md-6">
+              <p class="my-2">
+                The body mass index (BMI) is a measure that uses your height and
+                weight to work out if your weight is healthy.
+              </p>
+              <p class="my-2">
+                The BMI calculation divides an adult's weight in kilograms by
+                their height in metres squared.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </transition>
   </div>
 </template>
 
 <script>
 import _ from "lodash";
+import Vue from "vue";
 import { mapGetters } from "vuex";
 
-import { ChartColors } from "@/utils/constants";
-import { numericUtils } from "@/utils/mixins";
-import BodySilhouette from "@/components/charts/BodySilhouette";
-import ColoredProgressBar from "@/components/charts/ColoredProgressBar";
-
-const RANGE = [
-  { value: 10, color: ChartColors.DANGER, body: "thin" },
-  { value: 15, color: ChartColors.WARNING, body: "thin" },
-  { value: 18.5, color: ChartColors.GOOD, body: "normal" },
-  { value: 21.75, color: ChartColors.EXCELLENT, body: "strong" },
-  { value: 25, color: ChartColors.GOOD, body: "normal" },
-  { value: 30, color: ChartColors.WARNING, body: "overweight" },
-  { value: 40, color: ChartColors.DANGER, body: "obese" }
-];
+import { NumericUtils } from "@/utils/mixins";
+import { StorageKeys } from "@/utils/constants";
 
 const TABLE = [
   {
@@ -87,17 +110,11 @@ const TABLE = [
 export default {
   name: "BodyMassIndex",
 
-  mixins: [numericUtils],
-
-  components: {
-    BodySilhouette,
-    ColoredProgressBar
-  },
+  mixins: [NumericUtils],
 
   data() {
     return {
-      range: RANGE,
-      table: TABLE
+      expanded: Vue.localStorage.get(StorageKeys.EXPAND_BMI) === "true"
     };
   },
 
@@ -110,14 +127,25 @@ export default {
             (!row.min || this.value >= row.min) &&
             (!row.max || this.value < row.max)
         );
-        return row ? TABLE.indexOf(row) : null;
+        return row ? TABLE.indexOf(row) : -1;
       }
-      return null;
+      return -1;
     },
 
     ...mapGetters({
       value: "bmi"
     })
+  },
+
+  methods: {
+    toggleExpanded() {
+      this.expanded = !this.expanded;
+      Vue.localStorage.set(StorageKeys.EXPAND_BMI, this.expanded);
+    }
+  },
+
+  created() {
+    this.TABLE = TABLE;
   }
 };
 </script>

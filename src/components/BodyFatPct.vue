@@ -57,14 +57,14 @@
 import _ from "lodash";
 import { mapGetters } from "vuex";
 
-import { numericUtils } from "@/utils/mixins";
+import { NumericUtils } from "@/utils/mixins";
 import AmericanCouncil from "@/components/reports/AmericanCouncil";
 import JacksonPollard from "@/components/reports/JacksonPollard";
 
 export default {
   name: "BodyFatPct",
 
-  mixins: [numericUtils],
+  mixins: [NumericUtils],
 
   components: {
     AmericanCouncil,

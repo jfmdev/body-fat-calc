@@ -106,6 +106,28 @@ span.shrink-font-leave-to {
   font-size: 0;
 }
 
+/* Fade (for transitions) */
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.4s;
+}
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.fade-x2-enter-active,
+.fade-x2-leave-active {
+  transition: opacity 0.2s;
+}
+
+.fade-x2-enter,
+.fade-x2-leave-to {
+  opacity: 0;
+}
+
 /* Fade (for directives) */
 
 .v-fade-base {
