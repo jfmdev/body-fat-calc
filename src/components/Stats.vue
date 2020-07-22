@@ -20,7 +20,7 @@
 
     <!-- BFP (start) -->
     <div class="card text-medium mt-3">
-      <div class="card-header pl-2 pr-5 py-1 bg-info-light">
+      <div class="card-header pl-2 pr-5 py-1 bg-success-light">
         <!-- BFP Title -->
         <div class="d-flex justify-content-between">
           <div>

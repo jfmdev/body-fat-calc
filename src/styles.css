@@ -24,6 +24,18 @@
   background-color: #d9f0ff;
 }
 
+.bg-success-light {
+  background-color: #d9ffef;  
+}
+
+.flex-1 {
+  flex: 1;
+}
+
+.flex-2 {
+  flex: 2;
+}
+
 /* --- Progress bar colours --- */
 
 .colored-progress-bar {

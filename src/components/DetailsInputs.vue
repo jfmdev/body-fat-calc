@@ -6,209 +6,212 @@
       </div>
 
       <div class="card-body py-2 px-0">
-        <div class="container-fluid">
-          <div class="row">
-            <!-- Unities -->
-            <div class="col-lg-4 col-md-6 col-12">
-              <div class="row">
-                <div class="col-4">
-                  <label class="font-weight-bold mb-0">Unities</label>
-                </div>
-                <div class="col-4">
-                  <div class="form-check">
-                    <input
-                      value="M"
-                      name="system"
-                      :checked="value.system === 'M'"
-                      @change="updateInput"
-                      class="form-check-input"
-                      type="radio"
-                      id="calc_system_m"
-                    />
-                    <label
-                      class="form-check-label clickable"
-                      for="calc_system_m"
-                    >
-                      Metric
-                    </label>
-                  </div>
-                  <div class="text-small text-muted">(kilos and meters)</div>
-                </div>
-                <div class="col-4">
-                  <div class="form-check">
-                    <input
-                      value="E"
-                      name="system"
-                      :checked="value.system === 'E'"
-                      @change="updateInput"
-                      class="form-check-input"
-                      type="radio"
-                      id="calc_system_e"
-                    />
-                    <label
-                      class="form-check-label clickable"
-                      for="calc_system_e"
-                    >
-                      English
-                    </label>
-                  </div>
-                  <div class="text-small text-muted">(pounds and inches)</div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Gender -->
-            <div class="col-lg-4 col-md-6 col-12 offset-lg-2">
-              <div class="row">
-                <div class="col-4">
-                  <label class="font-weight-bold mb-0">Gender</label>
-                </div>
-                <div class="col-4">
-                  <div class="form-check">
-                    <input
-                      value="F"
-                      name="gender"
-                      :checked="value.gender === 'F'"
-                      @change="updateInput"
-                      class="form-check-input"
-                      type="radio"
-                      id="calc_gender_f"
-                    />
-                    <label
-                      class="form-check-label clickable"
-                      for="calc_gender_f"
-                    >
-                      Female
-                    </label>
-                  </div>
-                </div>
-                <div class="col-4">
-                  <div class="form-check">
-                    <input
-                      value="M"
-                      name="gender"
-                      :checked="value.gender === 'M'"
-                      @change="updateInput"
-                      class="form-check-input"
-                      type="radio"
-                      id="calc_gender_m"
-                    />
-                    <label
-                      class="form-check-label clickable"
-                      for="calc_gender_m"
-                    >
-                      Male
-                    </label>
-                  </div>
-                </div>
-              </div>
-            </div>
+        <div class="d-flex px-2">
+          <div class="flex-1">
+            <label class="font-weight-bold mb-0">Unities</label>
           </div>
 
-          <div class="row border-top mt-2 pt-2">
-            <div class="col-lg-2 col-md-4 col-6">
-              <label for="calc_age" class="font-weight-bold mb-0">
-                Age
+          <div class="flex-1">
+            <div class="form-check">
+              <input
+                value="M"
+                name="system"
+                :checked="value.system === 'M'"
+                @change="updateInput"
+                class="form-check-input"
+                type="radio"
+                id="calc_system_m"
+              />
+              <label class="form-check-label clickable" for="calc_system_m">
+                Metric
               </label>
-              <input
-                name="age"
-                :value="value.age"
-                @input="updateInput"
-                @change="updateInput"
-                class="form-control text-medium px-2 py-1"
-                type="number"
-                id="calc_age"
-                placeholder="e.g. 35 (years)"
-              />
             </div>
+            <div class="text-small text-muted">(kilos and meters)</div>
+          </div>
 
-            <div class="col-lg-2 col-md-4 col-6">
-              <label for="calc_height" class="font-weight-bold mb-0">
-                Height </label
-              ><span class="text-muted"> ({{ lengthUnit }})</span>
+          <div class="flex-1">
+            <div class="form-check">
               <input
-                name="height"
-                :value="value.height"
-                @input="updateInput"
+                value="E"
+                name="system"
+                :checked="value.system === 'E'"
                 @change="updateInput"
-                class="form-control text-medium px-2 py-1"
-                type="number"
-                id="calc_height"
-                :placeholder="lengthExample(175)"
+                class="form-check-input"
+                type="radio"
+                id="calc_system_e"
               />
+              <label class="form-check-label clickable" for="calc_system_e">
+                English
+              </label>
             </div>
+            <div class="text-small text-muted">(pounds and inches)</div>
+          </div>
+        </div>
 
-            <div class="col-lg-2 col-md-4 col-6">
-              <label for="calc_weight" class="font-weight-bold mb-0"
-                >Weight</label
-              ><span class="text-muted"> ({{ weightUnit }})</span>
-              <input
-                name="weight"
-                :value="value.weight"
-                @input="updateInput"
-                @change="updateInput"
-                type="number"
-                class="form-control text-medium px-2 py-1"
-                id="calc_weight"
-                :placeholder="weightExample(75)"
-              />
-            </div>
+        <div class="d-flex px-2 mt-2">
+          <div class="flex-1">
+            <label class="font-weight-bold mb-0">Gender</label>
+          </div>
 
-            <div class="col-lg-2 col-md-4 col-6">
-              <label for="calc_neck" class="font-weight-bold mb-0">Neck</label
-              ><span class="text-muted"> ({{ lengthUnit }})</span>
+          <div class="flex-1">
+            <div class="form-check">
               <input
-                name="neck"
-                :value="value.neck"
-                @input="updateInput"
+                value="F"
+                name="gender"
+                :checked="value.gender === 'F'"
                 @change="updateInput"
-                class="form-control text-medium px-2 py-1"
-                type="number"
-                id="calc_neck"
-                :placeholder="lengthExample(35)"
+                class="form-check-input"
+                type="radio"
+                id="calc_gender_f"
               />
-              <div class="text-right text-small text-muted">
-                (neck girth at narrowest point)
-              </div>
-            </div>
-
-            <div class="col-lg-2 col-md-4 col-6">
-              <label for="calc_waist" class="font-weight-bold mb-0">Waist</label
-              ><span class="text-muted"> ({{ lengthUnit }})</span>
-              <input
-                name="waist"
-                :value="value.waist"
-                @input="updateInput"
-                @change="updateInput"
-                class="form-control text-medium px-2 py-1"
-                type="number"
-                id="calc_waist"
-                :placeholder="lengthExample(85)"
-              />
-              <div class="text-right text-small text-muted">
-                (waist girth at
-                {{ isFemale ? "narrowest" : "navel" }} point)
-              </div>
-            </div>
-
-            <div class="col-lg-2 col-md-4 col-6" v-if="isFemale">
-              <label for="calc_hip" class="font-weight-bold mb-0">Hip</label
-              ><span class="text-muted"> ({{ lengthUnit }})</span>
-              <input
-                name="hip"
-                :value="value.hip"
-                @input="updateInput"
-                @change="updateInput"
-                class="form-control text-medium px-2 py-1"
-                type="number"
-                id="calc_hip"
-                :placeholder="lengthExample(95)"
-              />
-              <div class="text-right text-small text-muted">
-                (hip girth at widest point)
-              </div>
+              <label class="form-check-label clickable" for="calc_gender_f">
+                Female
+              </label>
             </div>
           </div>
+
+          <div class="flex-1">
+            <div class="form-check">
+              <input
+                value="M"
+                name="gender"
+                :checked="value.gender === 'M'"
+                @change="updateInput"
+                class="form-check-input"
+                type="radio"
+                id="calc_gender_m"
+              />
+              <label class="form-check-label clickable" for="calc_gender_m">
+                Male
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="d-flex px-2 mt-2">
+          <div class="flex-1">
+            <label for="calc_age" class="font-weight-bold mb-0">
+              Age
+            </label>
+          </div>
+          <div class="flex-2">
+            <input
+              name="age"
+              :value="value.age"
+              @input="updateInput"
+              @change="updateInput"
+              class="form-control text-medium px-2 py-1"
+              type="number"
+              id="calc_age"
+              placeholder="e.g. 35 (years)"
+            />
+          </div>
+        </div>
+
+        <div class="d-flex px-2 mt-2">
+          <div class="flex-1">
+            <label for="calc_height" class="font-weight-bold mb-0">
+              Height </label
+            ><span class="text-muted"> ({{ lengthUnit }})</span>
+          </div>
+          <div class="flex-2">
+            <input
+              name="height"
+              :value="value.height"
+              @input="updateInput"
+              @change="updateInput"
+              class="form-control text-medium px-2 py-1"
+              type="number"
+              id="calc_height"
+              :placeholder="lengthExample(175)"
+            />
+          </div>
+        </div>
+
+        <div class="d-flex px-2 mt-2">
+          <div class="flex-1">
+            <label for="calc_weight" class="font-weight-bold mb-0">Weight</label
+            ><span class="text-muted"> ({{ weightUnit }})</span>
+          </div>
+          <div class="flex-2">
+            <input
+              name="weight"
+              :value="value.weight"
+              @input="updateInput"
+              @change="updateInput"
+              type="number"
+              class="form-control text-medium px-2 py-1"
+              id="calc_weight"
+              :placeholder="weightExample(75)"
+            />
+          </div>
+        </div>
+
+        <div class="d-flex px-2 mt-2">
+          <div class="flex-1">
+            <label for="calc_neck" class="font-weight-bold mb-0">Neck</label
+            ><span class="text-muted"> ({{ lengthUnit }})</span>
+          </div>
+          <div class="flex-2">
+            <input
+              name="neck"
+              :value="value.neck"
+              @input="updateInput"
+              @change="updateInput"
+              class="form-control text-medium px-2 py-1"
+              type="number"
+              id="calc_neck"
+              :placeholder="lengthExample(35)"
+            />
+          </div>
+        </div>
+        <div class="text-right text-small text-muted px-2">
+          (neck girth at narrowest point)
+        </div>
+
+        <div class="d-flex px-2 mt-2">
+          <div class="flex-1">
+            <label for="calc_waist" class="font-weight-bold mb-0">Waist</label
+            ><span class="text-muted"> ({{ lengthUnit }})</span>
+          </div>
+          <div class="flex-2">
+            <input
+              name="waist"
+              :value="value.waist"
+              @input="updateInput"
+              @change="updateInput"
+              class="form-control text-medium px-2 py-1"
+              type="number"
+              id="calc_waist"
+              :placeholder="lengthExample(85)"
+            />
+          </div>
+        </div>
+        <div class="text-right text-small text-muted px-2">
+          (waist girth at
+          {{ isFemale ? "narrowest" : "navel" }} point)
+        </div>
+
+        <div class="d-flex px-2 mt-2" v-if="isFemale">
+          <div class="flex-1">
+            <label for="calc_hip" class="font-weight-bold mb-0">Hip</label
+            ><span class="text-muted"> ({{ lengthUnit }})</span>
+          </div>
+          <div class="flex-2">
+            <input
+              name="hip"
+              :value="value.hip"
+              @input="updateInput"
+              @change="updateInput"
+              class="form-control text-medium px-2 py-1"
+              type="number"
+              id="calc_hip"
+              :placeholder="lengthExample(95)"
+            />
+          </div>
+        </div>
+        <div class="text-right text-small text-muted px-2">
+          (hip girth at widest point)
         </div>
       </div>
     </div>
