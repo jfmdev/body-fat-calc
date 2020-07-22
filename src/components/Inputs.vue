@@ -227,7 +227,7 @@ import { IN_TO_CM, LBS_TO_KG } from "@/utils/constants";
 const isNumeric = value => !_.isNil(value) && !isNaN(value);
 
 export default {
-  name: "DetailsInputs",
+  name: "Inputs",
 
   computed: {
     ...mapState({
