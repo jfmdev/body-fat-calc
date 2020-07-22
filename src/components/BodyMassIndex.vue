@@ -1,7 +1,7 @@
 <template>
   <div class="card text-medium">
     <div class="card-header px-2 py-1 bg-info-light">
-      <div class="d-flex">
+      <div class="d-flex align-items-center">
         <div class="flex-1">
           <strong>Body Mass Index:</strong>
 

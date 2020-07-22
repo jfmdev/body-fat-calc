@@ -1,46 +1,61 @@
 <template>
-  <div class="card text-medium mt-3">
-    <div class="card-header pl-2 pr-5 py-1 bg-success-light">
-      <!-- BFP Title -->
-      <div class="d-flex justify-content-between">
-        <div>
-          <strong>Body Fat Percentage:</strong>
-        </div>
-        <div v-for="bfpMethod in BFPs" :key="bfpMethod.index">
-          <div class="form-check">
-            <input
-              class="form-check-input clickable"
-              type="radio"
-              :value="bfpMethod.index"
-              v-model="bfpIndex"
-            />
-            <label
-              @click="bfpIndex = bfpMethod.index"
-              class="form-check-label clickable"
-            >
-              <span :class="{ 'text-muted': bfpMethod.index !== bfpIndex }">
-                <span v-if="isNumber(bfpMethod.value)">
-                  {{ formatNumber(bfpMethod.value, 2, "%") }}
+  <div class="card text-medium">
+    <div class="card-header px-2 py-1 bg-success-light">
+      <div class="d-flex align-items-center">
+        <div class="flex-1 container-fluid">
+          <div class="row">
+            <div class="col-md-6 px-0">
+              <strong>Body Fat Percentage:</strong>
+
+              <transition name="fade" mode="out-in">
+                <span
+                  v-if="!!selectedBfp && isNumber(selectedBfp.value)"
+                  key="value"
+                >
+                  {{ formatNumber(selectedBfp.value, 2, "%") }}
                 </span>
-                <small v-else>
-                  N/A<span
-                    class="text-danger"
-                    v-if="bfpMethod.index === bfpIndex"
-                    >*</span
+                <span v-else key="na">
+                  N/A
+                  <small class="text-danger"
+                    >({{ selectedBfp.requiredMsg }})</small
                   >
-                </small>
-              </span>
-              <span class="text-muted ml-1">({{ bfpMethod.label }})</span>
-            </label>
-          </div>
-          <transition name="shrink-font">
-            <div
-              v-if="!isNumber(bfpMethod.value) && bfpMethod.index === bfpIndex"
-              class="text-danger"
-            >
-              <small>* {{ bfpMethod.requiredMsg }}</small>
+                </span>
+              </transition>
             </div>
-          </transition>
+
+            <div class="col-md-6 px-0">
+              Method:
+              <div
+                class="form-check form-check-inline mx-1"
+                v-for="bfpMethod in BFPs"
+                :key="bfpMethod.index"
+              >
+                <input
+                  class="form-check-input clickable"
+                  type="radio"
+                  :value="bfpMethod.index"
+                  v-model="bfpIndex"
+                />
+                <label
+                  @click="bfpIndex = bfpMethod.index"
+                  class="form-check-label clickable"
+                >
+                  <small>{{ bfpMethod.label }}</small>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <button class="btn px-1 py-0" @click="toggleExpanded">
+            <i
+              class="fas"
+              :class="
+                expanded ? 'fa-chevron-circle-up' : 'fa-chevron-circle-down'
+              "
+            ></i>
+          </button>
         </div>
       </div>
     </div>
@@ -55,9 +70,11 @@
 
 <script>
 import _ from "lodash";
+import Vue from "vue";
 import { mapGetters } from "vuex";
 
 import { NumericUtils } from "@/utils/mixins";
+import { StorageKeys } from "@/utils/constants";
 import AmericanCouncil from "@/components/reports/AmericanCouncil";
 import JacksonPollard from "@/components/reports/JacksonPollard";
 
@@ -73,7 +90,8 @@ export default {
 
   data: function() {
     return {
-      bfpIndex: 0
+      bfpIndex: Vue.localStorage.get(StorageKeys.BFP_METHOD, 0, Number),
+      expanded: Vue.localStorage.get(StorageKeys.EXPAND_BFP) === "true"
     };
   },
 
@@ -88,22 +106,22 @@ export default {
           index: 0,
           label: "RFM",
           value: this.rfm,
-          requiredMsg: "Requires gender, height and waist diameter."
+          requiredMsg: "requires gender, height and waist diameter"
         },
         {
           index: 1,
           label: "Deurenberg",
           value: this.deurenberg,
-          requiredMsg: "Requires gender, age, weight and height."
+          requiredMsg: "requires gender, age, weight and height"
         },
         {
           index: 2,
           label: "US Navy",
           value: this.usNavy,
           requiredMsg:
-            "Requires gender, height, waist diameter" +
+            "requires gender, height, waist diameter" +
             (this.isFemale ? ", hip diameter" : "") +
-            " and neck diameter."
+            " and neck diameter"
         }
       ];
     },
@@ -114,6 +132,17 @@ export default {
       rfm: "rfm",
       usNavy: "usNavy"
     })
+  },
+
+  watch: {
+    bfpIndex: newIndex => Vue.localStorage.set(StorageKeys.BFP_METHOD, newIndex)
+  },
+
+  methods: {
+    toggleExpanded() {
+      this.expanded = !this.expanded;
+      Vue.localStorage.set(StorageKeys.EXPAND_BFP, this.expanded);
+    }
   }
 };
 </script>

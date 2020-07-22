@@ -9,8 +9,9 @@ export const IN_TO_CM = 2.54;
 export const LBS_TO_KG = 0.45359237;
 
 export const StorageKeys = {
+  BFP_METHOD: "bfp-method",
   INPUTS: "inputs",
-  EXPAND_BFP: "expand-bpc",
+  EXPAND_BFP: "expand-bfp",
   EXPAND_BMI: "expand-bmi"
 };
 
