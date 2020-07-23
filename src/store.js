@@ -43,6 +43,10 @@ const store = new Vuex.Store({
   },
 
   mutations: {
+    clear(state) {
+      state.input = _.clone(DEFAULT_INPUT);
+    },
+
     input(state, newInput) {
       // Use 'assign' in case 'newInput' doesn't has all fields.
       state.input = _.assign({}, state.input, newInput);

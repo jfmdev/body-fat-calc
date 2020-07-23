@@ -3,6 +3,13 @@
     <div class="card text-medium">
       <div class="card-header px-2 py-1">
         Enter your details
+        <button
+          type="button"
+          class="btn btn-link float-right text-small py-0"
+          @click.prevent="clearInput"
+        >
+          <i class="fas fa-broom"></i> Clear
+        </button>
       </div>
 
       <div class="card-body py-2 px-0">
@@ -273,6 +280,7 @@ export default {
     },
 
     ...mapMutations({
+      clearInput: "clear",
       commitInput: "input"
     })
   }
