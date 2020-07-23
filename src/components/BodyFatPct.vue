@@ -23,8 +23,8 @@
               </transition>
             </div>
 
-            <div class="col-md-6 px-0">
-              Method:
+            <div class="col-md-6 px-0 d-flex align-items-center">
+              <div>Method:</div>
               <div
                 class="form-check form-check-inline mx-1"
                 v-for="bfpMethod in BFPs"
@@ -38,17 +38,29 @@
                 />
                 <label
                   @click="bfpIndex = bfpMethod.index"
-                  class="form-check-label clickable"
+                  class="form-check-label clickable pb-1"
                 >
                   <small>{{ bfpMethod.label }}</small>
                 </label>
               </div>
+
+              <button
+                class="btn btn-sm btn-link btn-link-info p-0 ml-1"
+                v-b-popover.html.click.blur.v-info="METHODS_DESCRIPTION"
+                title="Estimation methods"
+                variant="info"
+              >
+                <i class="fas fa-info-circle"></i>
+              </button>
             </div>
           </div>
         </div>
 
         <div>
-          <button class="btn px-1 py-0" @click="toggleExpanded">
+          <button
+            class="btn btn-link btn-link-dark px-1 py-0"
+            @click="toggleExpanded"
+          >
             <i
               class="fas"
               :class="
@@ -148,24 +160,24 @@ export default {
       return [
         {
           index: 0,
-          label: "RFM",
-          value: this.rfm,
-          requiredMsg: "requires gender, height and waist diameter"
-        },
-        {
-          index: 1,
-          label: "Deurenberg",
-          value: this.deurenberg,
-          requiredMsg: "requires gender, age, weight and height"
-        },
-        {
-          index: 2,
           label: "US Navy",
           value: this.usNavy,
           requiredMsg:
             "requires gender, height, waist diameter" +
             (this.isFemale ? ", hip diameter" : "") +
             " and neck diameter"
+        },
+        {
+          index: 1,
+          label: "RFM",
+          value: this.rfm,
+          requiredMsg: "requires gender, height and waist diameter"
+        },
+        {
+          index: 2,
+          label: "Deurenberg",
+          value: this.deurenberg,
+          requiredMsg: "requires gender, age, weight and height"
         }
       ];
     },
@@ -187,6 +199,18 @@ export default {
       this.expanded = !this.expanded;
       Vue.localStorage.set(StorageKeys.EXPAND_BFP, this.expanded);
     }
+  },
+
+  created() {
+    this.METHODS_DESCRIPTION = `<div>
+        They are several methods you can use to <em>estimate</em> (since measuring requires sophisticated equipment) the percentage of body fat:
+        <ol>
+          <li><strong>RFM:</strong> the Relative Fat Mass index is a method developed by investigators from the Cedars-Sinai Medical Center, who examined more than 300 possible formulas for estimating body fat, using a database of 12,000 adults, and then confirmed their results by measuring the fat percentage of 3,500 patients.</li>
+          <li><strong>US Navy:</strong> is an equation developed at the Naval Health Research Center by Hodgdon and Beckett in 1984, and currently used by the US Navy on their service members.</li>
+          <li><strong>Deurenberg:</strong> is a revision of the Body Mass Index formula, which adds coefficients for the age and sex. Isn't very accurate and should be used only as a orientative value.</li>
+        </ol>
+        Please note that these methods were developed to be applied on middle aged people.
+      </div>`;
   }
 };
 </script>

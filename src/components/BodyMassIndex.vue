@@ -23,7 +23,10 @@
         </div>
 
         <div>
-          <button class="btn px-1 py-0" @click="toggleExpanded">
+          <button
+            class="btn btn-link btn-link-dark px-1 py-0"
+            @click="toggleExpanded"
+          >
             <i
               class="fas"
               :class="

@@ -1,8 +1,20 @@
 <template>
   <div class="text-small">
-    <div class="mb-1">
-      <em>The American Council on Exercise Body Fat Categorization</em>
+    <div class="d-flex align-items-center mb-1">
+      <div>
+        <em>The American Council on Exercise Body Fat Categorization</em>
+      </div>
+
+      <button
+        class="btn btn-sm btn-link btn-link-muted p-0 ml-1"
+        v-b-popover.click.blur.v-info="POPOVER_CONTENT"
+        title="Ideal body fat percentage chart"
+        variant="info"
+      >
+        <i class="fas fa-info-circle"></i>
+      </button>
     </div>
+
     <table class="table table-bordered mb-0">
       <tbody>
         <tr
@@ -132,6 +144,11 @@ export default {
     ...mapGetters({
       isFemale: "isFemale"
     })
+  },
+
+  created() {
+    this.POPOVER_CONTENT =
+      "This body fat percentage chart was created by the American Council on Exercise to provide generic estimates and guidelines for middle-aged people. You should  consult your physician for guidelines that fit you.";
   }
 };
 </script>

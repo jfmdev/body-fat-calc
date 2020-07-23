@@ -1,7 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap');
 
-/* --- Miscelaneous --- */
-
 #app {
   background: rgb(255,255,255);
   background: linear-gradient(135deg,
@@ -22,8 +20,66 @@ h1 {
   font-family: 'Roboto Slab', serif;
 }
 
+/* --- Miscelaneous --- */
+
+.bg-info-light {
+  background-color: #d9f0ff;
+}
+
+.bg-success-light {
+  background-color: #d9ffef;  
+}
+
+.btn-link-dark {
+  color: #444;
+}
+
+.btn-link-info {
+  color: #4690bd;
+}
+
+.btn-link-muted {
+  color: #999;
+}
+
+/*.btn-link {
+  font-weight: $font-weight-normal;
+  color: $link-color;
+  background-color: transparent;
+
+  @include hover {
+    color: $link-hover-color;
+    text-decoration: $link-hover-decoration;
+    background-color: transparent;
+    border-color: transparent;
+  }
+
+  &:focus,
+  &.focus {
+    text-decoration: $link-hover-decoration;
+    border-color: transparent;
+    box-shadow: none;
+  }
+
+  &:disabled,
+  &.disabled {
+    color: $btn-link-disabled-color;
+    pointer-events: none;
+  }
+
+  // No need for an active state here
+}
+*/
 .clickable {
   cursor: pointer;
+}
+
+.flex-1 {
+  flex: 1;
+}
+
+.flex-2 {
+  flex: 2;
 }
 
 .text-medium {
@@ -39,22 +95,6 @@ h1 {
   -webkit-transition: background-color 0.3s;
   -moz-transition: background-color 0.3s;
   transition: background-color 0.3s;
-}
-
-.bg-info-light {
-  background-color: #d9f0ff;
-}
-
-.bg-success-light {
-  background-color: #d9ffef;  
-}
-
-.flex-1 {
-  flex: 1;
-}
-
-.flex-2 {
-  flex: 2;
 }
 
 /* --- Progress bar colours --- */
@@ -84,6 +124,12 @@ h1 {
   width: 80px;
   height: 80px;
   margin: 0 auto;
+}
+
+/* --- Popover --- */
+
+.popover {
+    max-width: 50%;
 }
 
 /* --- Animations --- */

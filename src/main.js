@@ -12,7 +12,12 @@ require("../node_modules/@fortawesome/fontawesome-free/css/all.min.css");
 
 // Bootstrap.
 import "bootstrap";
-require("../node_modules/bootstrap/dist/css/bootstrap.min.css");
+import "bootstrap/dist/css/bootstrap.css";
+
+// Bootstrap Vue.
+import BootstrapVue from "bootstrap-vue";
+import "bootstrap-vue/dist/bootstrap-vue.css";
+Vue.use(BootstrapVue);
 
 // Custom styles.
 require("./styles.css");

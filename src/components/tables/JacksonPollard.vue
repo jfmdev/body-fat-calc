@@ -1,8 +1,17 @@
 <template>
   <div class="text-small">
-    <div class="mb-1">
-      <em>Jackson & Pollard Ideal Body Fat Percentages</em>
+    <div class="d-flex align-items-center mb-1">
+      <div><em>Jackson & Pollard Ideal Body Fat Percentages</em></div>
+
+      <button
+        class="btn btn-sm btn-link btn-link-muted p-0 ml-1"
+        v-b-popover.click.blur.v-info="POPOVER_CONTENT"
+        title="Ideal body fat percentage chart"
+      >
+        <i class="fas fa-info-circle"></i>
+      </button>
     </div>
+
     <table class="table table-bordered mb-0">
       <tbody>
         <tr
@@ -86,6 +95,11 @@ export default {
     ...mapGetters({
       isFemale: "isFemale"
     })
+  },
+
+  created() {
+    this.POPOVER_CONTENT =
+      "This body fat percentage chart is based on a research by Jackson & Pollock to provide generic estimates and guidelines of recommended fat percentage. You should consult your physician for guidelines that fit you.";
   }
 };
 </script>
