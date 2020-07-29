@@ -122,7 +122,7 @@ import Vue from "vue";
 import { mapGetters } from "vuex";
 
 import { NumericUtils } from "@/utils/mixins";
-import { RANGE, StorageKeys } from "@/utils/constants";
+import { FatPercentageRanges, StorageKeys } from "@/utils/constants";
 import AmericanCouncil from "@/components/tables/AmericanCouncil";
 import BodySilhouette from "@/components/charts/BodySilhouette";
 import ColoredProgressBar from "@/components/charts/ColoredProgressBar";
@@ -149,7 +149,9 @@ export default {
 
   computed: {
     RANGE: function() {
-      return this.isFemale ? RANGE.FEMALE : RANGE.MALE;
+      return this.isFemale
+        ? FatPercentageRanges.FEMALE
+        : FatPercentageRanges.MALE;
     },
 
     selectedBfp: function() {

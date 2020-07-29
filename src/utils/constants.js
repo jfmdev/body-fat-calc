@@ -8,7 +8,7 @@ export const ChartColors = {
 export const IN_TO_CM = 2.54;
 export const LBS_TO_KG = 0.45359237;
 
-export const RANGE = {
+export const FatPercentageRanges = {
   FEMALE: [
     { value: 8, color: ChartColors.DANGER, body: "thin" },
     { value: 10, color: ChartColors.DANGER, body: "thin" },
@@ -44,6 +44,6 @@ export default {
   ChartColors,
   IN_TO_CM,
   LBS_TO_KG,
-  RANGE,
+  FatPercentageRanges,
   StorageKeys
 };
