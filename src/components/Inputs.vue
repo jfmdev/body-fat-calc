@@ -199,26 +199,28 @@
           {{ isFemale ? "narrowest" : "navel" }} point)
         </div>
 
-        <div class="d-flex px-2 mt-2" v-if="isFemale">
-          <div class="flex-1">
-            <label for="calc_hip" class="font-weight-bold mb-0">Hip</label
-            ><span class="text-muted"> ({{ lengthUnit }})</span>
+        <div v-if="isFemale">
+          <div class="d-flex px-2 mt-2">
+            <div class="flex-1">
+              <label for="calc_hip" class="font-weight-bold mb-0">Hip</label
+              ><span class="text-muted"> ({{ lengthUnit }})</span>
+            </div>
+            <div class="flex-2">
+              <input
+                name="hip"
+                :value="value.hip"
+                @input="updateInput"
+                @change="updateInput"
+                class="form-control text-medium px-2 py-1"
+                type="number"
+                id="calc_hip"
+                :placeholder="lengthExample(95)"
+              />
+            </div>
           </div>
-          <div class="flex-2">
-            <input
-              name="hip"
-              :value="value.hip"
-              @input="updateInput"
-              @change="updateInput"
-              class="form-control text-medium px-2 py-1"
-              type="number"
-              id="calc_hip"
-              :placeholder="lengthExample(95)"
-            />
+          <div class="text-right text-small text-muted px-2">
+            (hip girth at widest point)
           </div>
-        </div>
-        <div class="text-right text-small text-muted px-2">
-          (hip girth at widest point)
         </div>
       </div>
     </div>

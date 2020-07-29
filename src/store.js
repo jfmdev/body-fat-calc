@@ -39,12 +39,19 @@ function initialInput() {
 
 const store = new Vuex.Store({
   state: {
-    input: initialInput()
+    input: initialInput(),
+
+    bfpMethod: Vue.localStorage.get(StorageKeys.BFP_METHOD, "usNavy")
   },
 
   mutations: {
     clear(state) {
       state.input = _.clone(DEFAULT_INPUT);
+    },
+
+    bfpMethod(state, newMethod) {
+      state.bfpMethod = newMethod;
+      Vue.localStorage.set(StorageKeys.BFP_METHOD, newMethod);
     },
 
     input(state, newInput) {
@@ -106,6 +113,16 @@ const store = new Vuex.Store({
         );
       }
       return null;
+    },
+
+    selectedBfp: (state, getters) => {
+      if (state.bfpMethod === "usNavy") {
+        return getters.usNavy;
+      }
+      if (state.bfpMethod === "deurenberg") {
+        return getters.deurenberg;
+      }
+      return getters.rfm;
     }
   }
 });

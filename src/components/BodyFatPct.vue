@@ -9,15 +9,15 @@
 
               <transition name="fade" mode="out-in">
                 <span
-                  v-if="!!selectedBfp && isNumber(selectedBfp.value)"
+                  v-if="selectedMethod && isNumber(selectedMethod.value)"
                   key="value"
                 >
-                  {{ formatNumber(selectedBfp.value, 2, "%") }}
+                  {{ formatNumber(selectedMethod.value, 2, "%") }}
                 </span>
                 <span v-else key="na">
                   N/A
-                  <small class="text-danger"
-                    >({{ selectedBfp.requiredMsg }})</small
+                  <small class="text-danger" v-if="selectedMethod"
+                    >({{ selectedMethod.requiredMsg }})</small
                   >
                 </span>
               </transition>
@@ -27,17 +27,17 @@
               <div>Method:</div>
               <div
                 class="form-check form-check-inline mx-1"
-                v-for="bfpMethod in BFPs"
-                :key="bfpMethod.index"
+                v-for="bfpMethod in availableMethods"
+                :key="bfpMethod.key"
               >
                 <input
                   class="form-check-input clickable"
                   type="radio"
-                  :value="bfpMethod.index"
-                  v-model="bfpIndex"
+                  :checked="selectedMethod && selectedMethod.key === bfpMethod.key"
+                  @click="selectedMethod = bfpMethod"
                 />
                 <label
-                  @click="bfpIndex = bfpMethod.index"
+                  @click="selectedMethod = bfpMethod"
                   class="form-check-label clickable pb-1"
                 >
                   <small>{{ bfpMethod.label }}</small>
@@ -76,9 +76,9 @@
       <div class="container-fluid">
         <div class="row align-items-center">
           <div class="col-md-6 mb-2">
-            <BodySilhouette :range="RANGE" :value="selectedBfp.value" />
+            <BodySilhouette :range="bodyFatRange" :value="selectedBfp" />
 
-            <ColoredProgressBar :range="RANGE" :value="selectedBfp.value" />
+            <ColoredProgressBar :range="bodyFatRange" :value="selectedBfp" />
           </div>
 
           <transition name="fade-x2">
@@ -102,12 +102,12 @@
           </transition>
 
           <div class="col-md-6 mb-2">
-            <AmericanCouncil :value="selectedBfp.value" />
+            <AmericanCouncil :value="selectedBfp" />
           </div>
 
           <transition name="fade-x2">
             <div v-if="expanded" class="col-md-6 mb-2">
-              <JacksonPollard class="mt-2" :value="selectedBfp.value" />
+              <JacksonPollard class="mt-2" :value="selectedBfp" />
             </div>
           </transition>
         </div>
@@ -119,7 +119,7 @@
 <script>
 import _ from "lodash";
 import Vue from "vue";
-import { mapGetters } from "vuex";
+import { mapGetters, mapMutations, mapState } from "vuex";
 
 import { NumericUtils } from "@/utils/mixins";
 import { FatPercentageRanges, StorageKeys } from "@/utils/constants";
@@ -142,26 +142,37 @@ export default {
 
   data: function() {
     return {
-      bfpIndex: Vue.localStorage.get(StorageKeys.BFP_METHOD, 0, Number),
       expanded: Vue.localStorage.get(StorageKeys.EXPAND_BFP) !== "false"
     };
   },
 
   computed: {
-    RANGE: function() {
+    bodyFatRange: function() {
       return this.isFemale
         ? FatPercentageRanges.FEMALE
         : FatPercentageRanges.MALE;
     },
 
-    selectedBfp: function() {
-      return _.find(this.BFPs, bfp => bfp.index === this.bfpIndex);
+    selectedMethod: {
+      get() {
+        return _.find(
+          this.availableMethods,
+          bfpMethod => bfpMethod.key === this.methodKey
+        );
+      },
+      set(newMethod) {
+        this.commitMethodKey(_.isObject(newMethod) ? newMethod.key : newMethod);
+      }
     },
 
-    BFPs: function() {
+    selectedBfp: function() {
+      return this.selectedMethod ? this.selectedMethod.value : null;
+    },
+
+    availableMethods: function() {
       return [
         {
-          index: 0,
+          key: "usNavy",
           label: "US Navy",
           value: this.usNavy,
           requiredMsg:
@@ -170,13 +181,13 @@ export default {
             " and neck diameter"
         },
         {
-          index: 1,
+          key: "rfm",
           label: "RFM",
           value: this.rfm,
           requiredMsg: "requires gender, height and waist diameter"
         },
         {
-          index: 2,
+          key: "deurenberg",
           label: "Deurenberg",
           value: this.deurenberg,
           requiredMsg: "requires gender, age, weight and height"
@@ -184,23 +195,26 @@ export default {
       ];
     },
 
+    ...mapState({
+      methodKey: state => state.bfpMethod
+    }),
+
     ...mapGetters({
-      bmi: "bmi",
       deurenberg: "deurenberg",
       rfm: "rfm",
       usNavy: "usNavy"
     })
   },
 
-  watch: {
-    bfpIndex: newIndex => Vue.localStorage.set(StorageKeys.BFP_METHOD, newIndex)
-  },
-
   methods: {
     toggleExpanded() {
       this.expanded = !this.expanded;
       Vue.localStorage.set(StorageKeys.EXPAND_BFP, this.expanded);
-    }
+    },
+
+    ...mapMutations({
+      commitMethodKey: "bfpMethod"
+    })
   },
 
   created() {
