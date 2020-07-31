@@ -33,7 +33,9 @@
                 <input
                   class="form-check-input clickable"
                   type="radio"
-                  :checked="selectedMethod && selectedMethod.key === bfpMethod.key"
+                  :checked="
+                    selectedMethod && selectedMethod.key === bfpMethod.key
+                  "
                   @click="selectedMethod = bfpMethod"
                 />
                 <label

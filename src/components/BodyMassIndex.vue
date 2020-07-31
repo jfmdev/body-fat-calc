@@ -8,16 +8,15 @@
           <transition name="fade" mode="out-in">
             <span v-if="isNumber(value)" key="value">
               {{ formatNumber(value, 1, null) }}
+              <transition name="fade-x2">
+                <span v-if="!expanded && activeRow >= 0" class="text-muted">
+                  ({{ TABLE[activeRow].description.toLowerCase() }})
+                </span>
+              </transition>
             </span>
             <span v-else key="na">
               N/A
               <small class="text-danger">(requires weight and height)</small>
-            </span>
-          </transition>
-
-          <transition name="fade-x2">
-            <span v-if="!expanded && activeRow >= 0" class="text-muted">
-              ({{ TABLE[activeRow].description.toLowerCase() }})
             </span>
           </transition>
         </div>

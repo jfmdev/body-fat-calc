@@ -32,27 +32,7 @@
 import _ from "lodash";
 import { mapGetters, mapState } from "vuex";
 
-const TABLE_FEMALE = [
-  { age: 20, value: 17.7 },
-  { age: 25, value: 18.4 },
-  { age: 30, value: 19.3 },
-  { age: 35, value: 21.5 },
-  { age: 40, value: 22.2 },
-  { age: 45, value: 22.9 },
-  { age: 50, value: 25.2 },
-  { age: 55, value: 26.3 }
-];
-
-const TABLE_MALE = [
-  { age: 20, value: 8.5 },
-  { age: 25, value: 10.5 },
-  { age: 30, value: 12.7 },
-  { age: 35, value: 13.7 },
-  { age: 40, value: 15.3 },
-  { age: 45, value: 16.4 },
-  { age: 50, value: 18.9 },
-  { age: 55, value: 20.9 }
-];
+import { JacksonAndPollardPercentages } from "@/utils/constants";
 
 export default {
   name: "JacksonPollard",
@@ -85,7 +65,9 @@ export default {
     },
 
     TABLE: function() {
-      return this.isFemale ? TABLE_FEMALE : TABLE_MALE;
+      return this.isFemale
+        ? JacksonAndPollardPercentages.FEMALE
+        : JacksonAndPollardPercentages.MALE;
     },
 
     ...mapState({
