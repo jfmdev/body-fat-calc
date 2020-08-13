@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="container-fluid">
+  <div id="app" class="container-fluid pb-3">
     <h1 class="text-center mb-2">Body Fat Calculator</h1>
 
     <div class="row">

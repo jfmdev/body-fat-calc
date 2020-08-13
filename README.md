@@ -1,29 +1,17 @@
-# body-fat-calc
+# Body Fat Calculator
 
-## Project setup
-```
-yarn install
-```
+A simple Progressive Web App, implemented with Vue and Boostrap, for calculate (or more precisely, estimate) the body fat percentage of bodies.
 
-### Compiles and hot-reloads for development
-```
-yarn run serve
-```
+[Demo](https://jfmdev.github.io/body-fat-calc/)
 
-### Compiles and minifies for production
-```
-yarn run build
-```
+## Installation an usage
 
-### Run your tests
-```
-yarn run test
-```
+The project was created using [Vue CLI 3](https://cli.vuejs.org/), all commands for install, run and build the application are the ones defined by this tool. E.g:
 
-### Lints and fixes files
-```
-yarn run lint
-```
+ * `yarn install` for install all dependencies.
+ * `yarn run serve` for run the application locally.
+ * `yarn run build` for compile, and minify, for production.
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## License
+
+Body Fat Calculator is free software; you can redistribute it and/or modify it under the terms of the Mozilla Public License v2.0. You should have received a copy of the MPL 2.0 along with this library, otherwise you can obtain one at http://mozilla.org/MPL/2.0/.
