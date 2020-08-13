@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.a78cb28026e0a502afde14b95edd99eb.js"
+  "/body-fat-calc/precache-manifest.b94682e831c3d87f86e1c3e93fbdf354.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "body-fat-calc"});
